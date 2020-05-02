@@ -8,8 +8,8 @@ spring:
 
 mybatis:
   config-location: classpath:mybatis/mappers/mybatis-config.xml
-  mapper-locations: classpath:mybatis/mappers/mapper/*.xml
-
+  log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath*:mybatis.mappers/*Mapper.xml
 server:
   port: 8088
   servlet:

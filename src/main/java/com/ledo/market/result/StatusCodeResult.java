@@ -1,13 +1,13 @@
-package com.ledo.market;
+package com.ledo.market.result;
 
 /**
  * @author 王梦琼
  * 作用：在Http的post请求中将200或400等状态码封装成对象返回
  */
-public class Result {
+public class StatusCodeResult {
     private int code;
 
-    public Result(int code) {
+    public StatusCodeResult(int code) {
         this.code = code;
     }
 
