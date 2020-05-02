@@ -3,7 +3,7 @@ package com.ledo.market.entity;
 import java.util.Objects;
 
 /**
- * @author lenovo
+ * @author 王梦琼
  */
 public class User {
     private String userName;
