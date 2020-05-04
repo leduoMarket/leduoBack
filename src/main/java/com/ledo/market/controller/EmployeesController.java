@@ -18,6 +18,7 @@ import java.util.List;
  */
 @RestController
 public class EmployeesController {
+    @Autowired
     @Resource
     EmployeeMapper employeeMapper;
     @CrossOrigin
