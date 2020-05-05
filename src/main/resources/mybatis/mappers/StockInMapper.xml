@@ -10,18 +10,15 @@
     <result column="ipayment" jdbcType="DECIMAL" property="ipayment" />
     <result column="icount" jdbcType="INTEGER" property="icount" />
   </resultMap>
-
-<!--  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="com.ledo.market.entity.StockIn">-->
-<!--  select inumber, gid, vname, idate, iprice, ipayment, icount&ndash;&gt;-->
-<!--      from stock_in-->
-<!--      where inumber = #{inumber,jdbcType=VARCHAR}-->
-<!--    </select>-->
+  <select id="selectByInumber" resultType="com.ledo.market.entity.StockIn">
+      select inumber, gid, vname, idate, iprice, ipayment, icount
+      from stock_in
+      where gid = #{gid}
+    </select>
   <select id="selectAll" resultType="com.ledo.market.entity.StockIn">
       select inumber, gid, vname, idate, iprice, ipayment, icount
       from stock_in
     </select>
-
-
   <!--  <insert id="insert" parameterType="com.ledo.market.entity.StockIn">-->
 <!--    &lt;!&ndash;-->
 <!--      WARNING - @mbg.generated-->

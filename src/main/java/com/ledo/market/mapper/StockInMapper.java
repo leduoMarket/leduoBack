@@ -9,7 +9,7 @@ import java.util.List;
 public interface StockInMapper{
     int deleteByPrimaryKey(String inumber);
     int insert(StockIn record);
-    StockIn selectByPrimaryKey(String inumber);
+    StockIn selectByInumber(Integer gid);
     List<StockIn> selectAll();
     int updateByPrimaryKey(StockIn record);
 }
