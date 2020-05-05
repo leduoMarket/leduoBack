@@ -20,7 +20,7 @@
       #{erole,jdbcType=VARCHAR}, #{esalary,jdbcType=DECIMAL})
   </insert>
 
-  <select id="delete" parameterType="int">
+  <select id="delete" resultType="Integer">
    delete from employee where eid=#{eid}
   </select>
 

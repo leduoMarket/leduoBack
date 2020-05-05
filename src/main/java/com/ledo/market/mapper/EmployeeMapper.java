@@ -10,5 +10,5 @@ import java.util.List;
 public interface EmployeeMapper {
     int insert(Employee record);
     List<Employee> selectAll();
-    int delete(int eid);
+    Integer delete(int eid);
 }
