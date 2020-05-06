@@ -2,9 +2,8 @@ package com.ledo.market.controller;
 
 import com.ledo.market.entity.StockOut;
 import com.ledo.market.mapper.StockOutMapper;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.ledo.market.result.StatusCodeResult;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -20,4 +19,12 @@ public class StockOutController {
         return stockoutmapper.selectAll();
     }
     /*后面还可以写别的方法*/
+    @CrossOrigin
+    @PostMapping("/addstockout")
+    @ResponseBody
+    public StatusCodeResult addstockout(@RequestBody StockOut reqstockout){
+        System.out.print(reqstockout.getGid());
+        System.out.println(stockoutmapper.insert(reqstockout));
+        return new StatusCodeResult(200);
+    }
 }

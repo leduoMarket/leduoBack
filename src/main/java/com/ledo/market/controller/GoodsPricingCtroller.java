@@ -2,9 +2,8 @@ package com.ledo.market.controller;
 
 import com.ledo.market.entity.ProductPricing;
 import com.ledo.market.mapper.ProductPricingMapper;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.ledo.market.result.StatusCodeResult;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -18,6 +17,16 @@ public class GoodsPricingCtroller {
     public List<ProductPricing> selectAll(){
         return productPricingmapper.selectAll();
     }
+    @CrossOrigin
+    @PostMapping("/addproduceprice")
+    @ResponseBody
+    public StatusCodeResult addpprice(@RequestBody ProductPricing reqpprice){
+        System.out.println(reqpprice.getGid());
+        System.out.println(reqpprice.getGname());
+        System.out.println(productPricingmapper.insert(reqpprice));
+        return new StatusCodeResult(100);
+    }
+
 
 
 }

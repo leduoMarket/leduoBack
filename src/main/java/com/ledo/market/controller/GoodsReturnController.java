@@ -1,10 +1,10 @@
 package com.ledo.market.controller;
 
+import com.ledo.market.entity.ProductPricing;
 import com.ledo.market.entity.ProductReturn;
 import com.ledo.market.mapper.ProductReturnMapper;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.ledo.market.result.StatusCodeResult;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -17,5 +17,14 @@ public class GoodsReturnController {
     @GetMapping("/productreturn")
     public List<ProductReturn> selectAll(){
         return productReturnMapper.selectAll();
+    }
+
+    @CrossOrigin
+    @PostMapping("/addproductreturn")
+    @ResponseBody
+    public StatusCodeResult addpreturn(@RequestBody ProductReturn reqreturn){
+        System.out.println(reqreturn.getGid());
+        System.out.println(productReturnMapper.insert(reqreturn));
+        return new StatusCodeResult(200);
     }
 }
