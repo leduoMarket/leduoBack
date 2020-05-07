@@ -14,7 +14,7 @@ public class StockInController {
     @Resource
     StockInMapper stockinmapper;
     @CrossOrigin
-    @GetMapping("/stockIn")
+    @GetMapping("/stock")
 
     public List<StockIn> selectAll(){
 
@@ -33,7 +33,7 @@ public class StockInController {
     }
 
     @CrossOrigin
-    @PostMapping("/addstockIn")
+    @PostMapping("/addstock")
     @ResponseBody
     public StatusCodeResult addstock(@RequestBody StockIn reqstock){
         System.out.println(reqstock.getGid());
