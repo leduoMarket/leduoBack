@@ -31,5 +31,13 @@
     -->
     select gid, rdate, rreasong, rcount
     from product_return
+</select>
+  <select id="selectByPrimaryKey" resultType="com.ledo.market.entity.ProductReturn">
+      select gid, rdate, rreasong, rcount
+    from product_return
+      where gid = #{gid} GROUP BY gid
+    </select>
+  <select id="delete" parameterType="com.ledo.market.entity.ProductReturn">
+   delete from product_return where gid=#{gid}
   </select>
 </mapper>

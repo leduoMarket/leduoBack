@@ -2,7 +2,7 @@ package com.ledo.market.controller;
 
 import com.ledo.market.entity.StockIn;
 import com.ledo.market.mapper.StockInMapper;
-import org.springframework.ui.Model;
+import com.ledo.market.result.StatusCodeResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -14,12 +14,14 @@ public class StockInController {
     StockInMapper stockinmapper;
     @CrossOrigin
     @GetMapping("/stock")
+
     public List<StockIn> selectAll(){
+
         return stockinmapper.selectAll();
     }
 
     @CrossOrigin
-    @GetMapping("/queiryStockIn")
+    @GetMapping("/queryStockIn")
     public StockIn selectByPrimaryKey(@RequestParam(value = "inumber") String inumber){
         StockIn s = stockinmapper.selectByInumber(inumber);
         if(s!=null){
@@ -29,5 +31,22 @@ public class StockInController {
         return null;
     }
 
+    @CrossOrigin
+    @PostMapping("/addstock")
+    @ResponseBody
+    public StatusCodeResult addstock(@RequestBody StockIn reqstock){
+        System.out.println(reqstock.getGid());
+        System.out.println(reqstock.getIdate());
+        System.out.println(reqstock.getIcount());
+        System.out.println(stockinmapper.insert(reqstock));
+        return new StatusCodeResult(200);
+    }
+    @CrossOrigin
+    @DeleteMapping("/delstockIn")
+    public StatusCodeResult delemp(@RequestParam(value = "stockInId") String stockInId) {
+        System.out.println("empID:" + stockInId);
+        System.out.println(stockinmapper.delete(stockInId));
+        return new StatusCodeResult(200);
+    }
 
 }

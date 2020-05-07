@@ -46,4 +46,5 @@ public interface StockOutMapper {
      * @mbg.generated Sat May 02 14:02:10 CST 2020
      */
     int updateByPrimaryKey(StockOut record);
+    String delete(String onumber);
 }

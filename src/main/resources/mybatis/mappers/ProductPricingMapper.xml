@@ -37,4 +37,13 @@
     select gid, gname, pold_price, pnew_price, preason, pdate, phandler
     from product_pricing
   </select>
+  <select id="selectByPrimaryKey" resultType="com.ledo.market.entity.ProductPricing">
+      select gid, gname, pold_price, pnew_price, preason, pdate, phandler
+    from product_pricing
+      where gid = #{gid} GROUP BY gid
+    </select>
+
+  <select id="delete" parameterType="com.ledo.market.entity.ProductPricing">
+   delete from product_pricing where gid=#{gid}
+  </select>
 </mapper>

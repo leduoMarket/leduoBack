@@ -2,6 +2,10 @@ package com.ledo.market.controller;
 import com.ledo.market.entity.Employee;
 import com.ledo.market.mapper.EmployeeMapper;
 import com.ledo.market.result.StatusCodeResult;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
@@ -14,6 +18,7 @@ import java.util.List;
 public class EmployeesController {
     @Resource
     EmployeeMapper employeeMapper;
+
     @CrossOrigin
     @GetMapping("/emps")
     public List<Employee> list(){
