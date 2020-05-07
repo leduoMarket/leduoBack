@@ -13,12 +13,12 @@ public class GoodsPricingCtroller {
     @Resource
     ProductPricingMapper productPricingmapper;
     @CrossOrigin
-    @GetMapping("/productprice")
+    @GetMapping("/commodityPricing")
     public List<ProductPricing> selectAll(){
         return productPricingmapper.selectAll();
     }
     @CrossOrigin
-    @PostMapping("/addproduceprice")
+    @PostMapping("/addcommodityPricing")
     @ResponseBody
     public StatusCodeResult addpprice(@RequestBody ProductPricing reqpprice){
         System.out.println(reqpprice.getGid());
@@ -26,6 +26,7 @@ public class GoodsPricingCtroller {
         System.out.println(productPricingmapper.insert(reqpprice));
         return new StatusCodeResult(100);
     }
+
 
 
 

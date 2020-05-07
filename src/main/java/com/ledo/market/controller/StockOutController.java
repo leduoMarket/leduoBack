@@ -13,14 +13,14 @@ public class StockOutController {
     @Resource
     StockOutMapper stockoutmapper;
     @CrossOrigin
-    @GetMapping("/stockout")
+    @GetMapping("/stockOut")
 
     public List<StockOut> selectAll(){
         return stockoutmapper.selectAll();
     }
     /*后面还可以写别的方法*/
     @CrossOrigin
-    @PostMapping("/addstockout")
+    @PostMapping("/addstockOut")
     @ResponseBody
     public StatusCodeResult addstockout(@RequestBody StockOut reqstockout){
         System.out.print(reqstockout.getGid());

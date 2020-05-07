@@ -24,8 +24,12 @@
     values (#{eid,jdbcType=INTEGER}, #{ename,jdbcType=VARCHAR}, #{ephone,jdbcType=VARCHAR}, 
       #{erole,jdbcType=VARCHAR}, #{esalary,jdbcType=DECIMAL})
   </insert>
-  <select id="delete" parameterType="int">
+
+  <select id="delete" parameterType="com.ledo.market.entity.Employee">
    delete from employee where eid=#{eid}
   </select>
+<!--  <select id="delete" resultType="Integer">-->
+<!--    delete from employee where eid=#{eid}-->
+<!--  </select>-->
 
 </mapper>

@@ -9,4 +9,5 @@ import java.util.List;
 public interface ProductReturnMapper {
     int insert(ProductReturn record);
     List<ProductReturn> selectAll();
+    Integer delete(int gid);
 }

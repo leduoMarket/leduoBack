@@ -31,5 +31,8 @@
     -->
     select gid, rdate, rreasong, rcount
     from product_return
+</select>
+  <select id="delete" parameterType="com.ledo.market.entity.Employee">
+   delete from product_return where gid=#{gid}
   </select>
 </mapper>

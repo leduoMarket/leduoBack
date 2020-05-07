@@ -40,4 +40,12 @@ public class EmployeesController {
         return new StatusCodeResult(200);
 
     }
+
+    @CrossOrigin
+    @DeleteMapping("/delemp")
+    public StatusCodeResult delemp(@RequestParam(value = "empId") int empId) {
+        System.out.println("empID:" + empId);
+        System.out.println(employeeMapper.delete(empId));
+        return new StatusCodeResult(200);
+    }
 }
