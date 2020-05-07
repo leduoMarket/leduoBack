@@ -17,4 +17,5 @@ public interface EmployeeMapper {
     int insert(Employee record);
     List<Employee> selectAll();
     Integer delete(int eid);
+    Employee selectByPrimaryKey(Integer eid);
 }

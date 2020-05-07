@@ -26,6 +26,26 @@ public class GoodsPricingCtroller {
         System.out.println(productPricingmapper.insert(reqpprice));
         return new StatusCodeResult(100);
     }
+    @CrossOrigin
+    @GetMapping("/querycommodityPricing")
+    public ProductPricing selectByPrimaryKey(@RequestParam(value = "gid") Long gid){
+        ProductPricing s = productPricingmapper.selectByPrimaryKey(gid);
+        if(s!=null){
+            System.out.println("priceItem"+s.getGid());
+            return s;
+        }
+        return null;
+    }
+
+    @CrossOrigin
+    @DeleteMapping("/delcommodityPricing")
+    public StatusCodeResult delemp(@RequestParam(value = "priceId") String priceId) {
+        System.out.println("empID:" + priceId);
+        int goodsIds;
+        goodsIds = Integer.parseInt(priceId);
+        System.out.println(productPricingmapper.delete(goodsIds));
+        return new StatusCodeResult(200);
+    }
 
 
 

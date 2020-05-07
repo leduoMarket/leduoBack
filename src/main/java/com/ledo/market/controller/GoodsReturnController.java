@@ -31,10 +31,21 @@ public class GoodsReturnController {
     @CrossOrigin
     @DeleteMapping("/delgoodsReturn")
     public StatusCodeResult delemp(@RequestParam(value = "goodsId") String goodsId) {
-        System.out.println("empID:" + goodsId);
+        System.out.println("returnID:" + goodsId);
         int goodsIds;
         goodsIds = Integer.parseInt(goodsId);
         System.out.println(productReturnMapper.delete(goodsIds));
         return new StatusCodeResult(200);
+    }
+
+    @CrossOrigin
+    @GetMapping("/querygoodsReturn")
+    public ProductReturn selectByPrimaryKey(@RequestParam(value = "gid") Long gid){
+        ProductReturn s = productReturnMapper.selectByPrimaryKey(gid);
+        if(s!=null){
+            System.out.println("returnItem"+s.getGid());
+            return s;
+        }
+        return null;
     }
 }

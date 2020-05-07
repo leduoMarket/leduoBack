@@ -1,5 +1,6 @@
 package com.ledo.market.controller;
 
+import com.ledo.market.entity.StockIn;
 import com.ledo.market.entity.StockOut;
 import com.ledo.market.mapper.StockOutMapper;
 import com.ledo.market.result.StatusCodeResult;
@@ -19,6 +20,18 @@ public class StockOutController {
         return stockoutmapper.selectAll();
     }
     /*后面还可以写别的方法*/
+
+    @CrossOrigin
+    @GetMapping("/querystockOut")
+    public StockOut selectByPrimaryKey(@RequestParam(value = "onumber") String inumber){
+        StockOut s = stockoutmapper.selectByPrimaryKey(inumber);
+        if(s!=null){
+            System.out.println("stockOutItem"+s.getOnumber());
+            return s;
+        }
+        return null;
+    }
+
     @CrossOrigin
     @PostMapping("/addstockOut")
     @ResponseBody

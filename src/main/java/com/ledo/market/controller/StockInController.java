@@ -20,9 +20,18 @@ public class StockInController {
 
         return stockinmapper.selectAll();
     }
-    public StockIn selectByPrimaryKey(String inumber){
-        return stockinmapper.selectByPrimaryKey(inumber);
+
+    @CrossOrigin
+    @GetMapping("/queryStockIn")
+    public StockIn selectByPrimaryKey(@RequestParam(value = "inumber") String inumber){
+        StockIn s = stockinmapper.selectByInumber(inumber);
+        if(s!=null){
+            System.out.println("stockInItem"+s.getInumber());
+            return s;
+        }
+        return null;
     }
+
     @CrossOrigin
     @PostMapping("/addstockIn")
     @ResponseBody
@@ -33,4 +42,5 @@ public class StockInController {
         System.out.println(stockinmapper.insert(reqstock));
         return new StatusCodeResult(200);
     }
+
 }
