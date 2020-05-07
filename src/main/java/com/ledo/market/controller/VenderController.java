@@ -14,14 +14,14 @@ public class VenderController {
     @Resource
     VenderMapper vendermapper;
     @CrossOrigin
-    @GetMapping("/vender")
+    @GetMapping("/Vender")
 
     public List<Vender> selectAll(){
         return vendermapper.selectAll();
     }
 
     @CrossOrigin
-    @PostMapping("/addvender")
+    @PostMapping("/addVender")
     @ResponseBody
     public StatusCodeResult addvender(@RequestBody Vender reqven){
         System.out.println(reqven.getVid());
