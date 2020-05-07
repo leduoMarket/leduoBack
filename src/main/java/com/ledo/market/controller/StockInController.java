@@ -20,9 +20,13 @@ public class StockInController {
 
     @CrossOrigin
     @GetMapping("/queiryStockIn")
-    public StockIn selectByPrimaryKey(@RequestParam(value = "gid") Integer gid){
-        StockIn s = stockinmapper.selectByInumber(gid);
-        return s;
+    public StockIn selectByPrimaryKey(@RequestParam(value = "inumber") String inumber){
+        StockIn s = stockinmapper.selectByInumber(inumber);
+        if(s!=null){
+            System.out.println("stockInItem"+s.getInumber());
+            return s;
+        }
+        return null;
     }
 
 

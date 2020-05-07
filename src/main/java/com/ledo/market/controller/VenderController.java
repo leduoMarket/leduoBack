@@ -16,10 +16,8 @@ public class VenderController {
     VenderMapper vendermapper;
     @CrossOrigin
     @GetMapping("/vender")
-
     public List<Vender> selectAll(){
         return vendermapper.selectAll();
     }
-
 
 }

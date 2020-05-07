@@ -16,7 +16,7 @@ public class EmployeesController {
     EmployeeMapper employeeMapper;
     @CrossOrigin
     @GetMapping("/emps")
-    public List<Employee> list(Model model){
+    public List<Employee> list(){
         return employeeMapper.selectAll();
     }
 

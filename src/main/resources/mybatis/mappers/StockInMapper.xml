@@ -13,7 +13,7 @@
   <select id="selectByInumber" resultType="com.ledo.market.entity.StockIn">
       select inumber, gid, vname, idate, iprice, ipayment, icount
       from stock_in
-      where gid = #{gid}
+      where inumber = #{inumber}
     </select>
   <select id="selectAll" resultType="com.ledo.market.entity.StockIn">
       select inumber, gid, vname, idate, iprice, ipayment, icount
