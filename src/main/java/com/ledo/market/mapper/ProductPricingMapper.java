@@ -23,5 +23,5 @@ public interface ProductPricingMapper {
      */
     List<ProductPricing> selectAll();
     ProductPricing selectByPrimaryKey(Long gid);
-    Integer delete(int gid);
+    Integer delete(Long gid);
 }

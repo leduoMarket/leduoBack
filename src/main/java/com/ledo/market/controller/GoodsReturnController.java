@@ -7,6 +7,7 @@ import com.ledo.market.result.StatusCodeResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.math.BigInteger;
 import java.util.List;
 
 @RestController
@@ -32,9 +33,13 @@ public class GoodsReturnController {
     @DeleteMapping("/delgoodsReturn")
     public StatusCodeResult delemp(@RequestParam(value = "goodsId") String goodsId) {
         System.out.println("returnID:" + goodsId);
-        int goodsIds;
-        goodsIds = Integer.parseInt(goodsId);
-        System.out.println(productReturnMapper.delete(goodsIds));
+        if(goodsId == null){
+            System.out.println("error");
+        }else {
+            Long goodsIds;
+            goodsIds = Long.parseLong(goodsId);
+            System.out.println(productReturnMapper.delete(goodsIds));
+        }
         return new StatusCodeResult(200);
     }
 

@@ -30,5 +30,15 @@ public class VenderController {
         return new StatusCodeResult(200);
     }
 
+    @CrossOrigin
+    @DeleteMapping("/delVender")
+    public StatusCodeResult delemp(@RequestParam(value = "venderId") String venderId) {
+        System.out.println("empID:" + venderId);
+        Long goodsIds;
+        goodsIds = Long.parseLong(venderId);
+        System.out.println(vendermapper.delete(goodsIds));
+        return new StatusCodeResult(200);
+    }
+
 
 }

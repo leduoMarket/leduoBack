@@ -46,4 +46,5 @@ public interface VenderMapper {
      * @mbg.generated Sat May 02 14:02:10 CST 2020
      */
     int updateByPrimaryKey(Vender record);
+    String delete(Long vid);
 }

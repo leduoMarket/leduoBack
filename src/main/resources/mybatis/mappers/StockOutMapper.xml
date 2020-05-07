@@ -72,4 +72,7 @@
     select onumber, gid, vname, odate, oprice, opayment, ocount
     from stock_out
   </select>
+  <select id="delete" resultType="com.ledo.market.entity.StockOut">
+   delete from stock_out where onumber=#{onumber}
+  </select>
 </mapper>

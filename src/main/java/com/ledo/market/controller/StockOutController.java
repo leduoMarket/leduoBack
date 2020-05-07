@@ -40,4 +40,12 @@ public class StockOutController {
         System.out.println(stockoutmapper.insert(reqstockout));
         return new StatusCodeResult(200);
     }
+
+    @CrossOrigin
+    @DeleteMapping("/delstockOut")
+    public StatusCodeResult delemp(@RequestParam(value = "stockOutId") String stockOutId) {
+        System.out.println("empID:" + stockOutId);
+        System.out.println(stockoutmapper.delete(stockOutId));
+        return new StatusCodeResult(200);
+    }
 }

@@ -21,6 +21,9 @@
       from stock_in
     </select>
 
+  <select id="delete" parameterType="com.ledo.market.entity.StockIn">
+   delete from stock_in where inumber=#{inumber}
+  </select>
 
     <insert id="insert" parameterType="com.ledo.market.entity.StockIn">
     insert into stock_in (inumber, gid, vname,

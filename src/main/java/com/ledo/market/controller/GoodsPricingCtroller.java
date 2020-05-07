@@ -41,8 +41,8 @@ public class GoodsPricingCtroller {
     @DeleteMapping("/delcommodityPricing")
     public StatusCodeResult delemp(@RequestParam(value = "priceId") String priceId) {
         System.out.println("empID:" + priceId);
-        int goodsIds;
-        goodsIds = Integer.parseInt(priceId);
+        Long goodsIds;
+        goodsIds = Long.parseLong(priceId);
         System.out.println(productPricingmapper.delete(goodsIds));
         return new StatusCodeResult(200);
     }
