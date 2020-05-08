@@ -12,4 +12,6 @@ public interface StockInMapper{
     StockIn selectByPrimaryKey(String inumber);
     List<StockIn> selectAll();
     int updateByPrimaryKey(StockIn record);
+
+    StockIn selectByInumber(String inumber);
 }
