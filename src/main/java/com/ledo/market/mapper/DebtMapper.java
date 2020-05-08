@@ -43,4 +43,5 @@ public interface DebtMapper {
      * @mbg.generated Sat May 02 14:02:10 CST 2020
      */
     int updateByPrimaryKey(Debt record);
+    String delete(String dnumber);
 }
