@@ -19,5 +19,8 @@ public interface InventoryAccountsMapper {
      * @mbg.generated Wed May 06 22:38:32 CST 2020
      */
     List<InventoryAccounts> selectAll();
+<<<<<<< HEAD
     InventoryAccounts selectByPrimaryKey(Long gid);
+=======
+>>>>>>> 5c07c5b8c2d817cff31ef8dd8ee554fc30650c06
 }

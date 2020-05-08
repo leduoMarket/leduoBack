@@ -3,7 +3,6 @@ package com.ledo.market.controller;
 import com.ledo.market.entity.StockIn;
 import com.ledo.market.mapper.StockInMapper;
 import com.ledo.market.result.StatusCodeResult;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -14,7 +13,7 @@ public class StockInController {
     @Resource
     StockInMapper stockinmapper;
     @CrossOrigin
-    @GetMapping("/stockIn")
+    @GetMapping("/stock")
 
     public List<StockIn> selectAll(){
 
@@ -33,7 +32,7 @@ public class StockInController {
     }
 
     @CrossOrigin
-    @PostMapping("/addstockIn")
+    @PostMapping("/addstock")
     @ResponseBody
     public StatusCodeResult addstock(@RequestBody StockIn reqstock){
         System.out.println(reqstock.getGid());
