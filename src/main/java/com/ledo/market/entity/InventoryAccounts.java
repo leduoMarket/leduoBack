@@ -132,8 +132,6 @@ public class InventoryAccounts {
     public void setStockAlert(String stockAlert) {
         this.stockAlert = stockAlert;
     }
-<<<<<<< HEAD
+
 }
-=======
-}
->>>>>>> 5c07c5b8c2d817cff31ef8dd8ee554fc30650c06
+
