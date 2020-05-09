@@ -15,13 +15,13 @@ public class GoodsReturnController {
     @Resource
     ProductReturnMapper productReturnMapper;
     @CrossOrigin
-    @GetMapping("/goodsReturn")
+    @GetMapping("/home/goodsReturn")
     public List<ProductReturn> selectAll(){
         return productReturnMapper.selectAll();
     }
 
     @CrossOrigin
-    @PostMapping("/addgoodsReturn")
+    @PostMapping("/home/addgoodsReturn")
     @ResponseBody
     public StatusCodeResult addpreturn(@RequestBody ProductReturn reqreturn){
         System.out.println(reqreturn.getGid());
@@ -30,7 +30,7 @@ public class GoodsReturnController {
     }
 
     @CrossOrigin
-    @DeleteMapping("/delgoodsReturn")
+    @DeleteMapping("/home/delgoodsReturn")
     public StatusCodeResult delemp(@RequestParam(value = "goodsId") String goodsId) {
         System.out.println("returnID:" + goodsId);
         if(goodsId == null){
@@ -44,7 +44,7 @@ public class GoodsReturnController {
     }
 
     @CrossOrigin
-    @GetMapping("/querygoodsReturn")
+    @GetMapping("/home/querygoodsReturn")
     public ProductReturn selectByPrimaryKey(@RequestParam(value = "gid") Long gid){
         ProductReturn s = productReturnMapper.selectByPrimaryKey(gid);
         if(s!=null){
