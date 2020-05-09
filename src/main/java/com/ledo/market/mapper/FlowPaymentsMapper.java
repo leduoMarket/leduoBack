@@ -43,4 +43,5 @@ public interface FlowPaymentsMapper {
      * @mbg.generated Sat May 02 14:02:10 CST 2020
      */
     int updateByPrimaryKey(FlowPayments record);
+    Integer delete(Integer pnumber);
 }
