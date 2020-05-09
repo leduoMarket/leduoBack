@@ -8,7 +8,7 @@ public class Goods {
     private String gname;
     private String categories;
     private String address;
-    private BigDecimal charge_unit;
+    private String charge_unit;
     private Date gdate;
 
     public Long getGid() {
@@ -39,10 +39,10 @@ public class Goods {
         this.address = address;
     }
 
-    public BigDecimal getCharge_unit() {
+    public String getCharge_unit() {
         return charge_unit;
     }
-    public void setCharge_unit(BigDecimal charge_unit) {
+    public void setCharge_unit(String charge_unit) {
         this.charge_unit = charge_unit;
     }
 
