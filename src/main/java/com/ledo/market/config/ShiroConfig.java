@@ -27,17 +27,12 @@ public class ShiroConfig {
         ShiroFilterFactoryBean filterBean = new ShiroFilterFactoryBean();
         filterBean.setSecurityManager(securityManager);
         Map<String, String> filterMap = new LinkedHashMap<>();
-        filterBean.setUnauthorizedUrl("/login");
-        filterBean.setLoginUrl("/");
-        filterMap.put("/emps", "authc");
-        filterMap.put("/logout", "authc");
-        filterMap.put("/stock", "authc");
+        filterBean.setLoginUrl("/identifyFailed");
+        filterMap.put("/home/**", "authc");
         System.out.println("过滤器拦截stock");
-        filterBean.setSuccessUrl("/emps");
         filterBean.setFilterChainDefinitionMap(filterMap);
         return filterBean;
     }
-
     @Bean
     DefaultWebSecurityManager securityManager() {
         DefaultWebSecurityManager manager = new DefaultWebSecurityManager();
@@ -62,7 +57,6 @@ public class ShiroConfig {
     public SessionManager sessionManager() {
         return null;
     }
-
 //    @Bean
 //    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(DefaultWebSecurityManager security){
 //        AuthorizationAttributeSourceAdvisor advisor = new AuthorizationAttributeSourceAdvisor();
