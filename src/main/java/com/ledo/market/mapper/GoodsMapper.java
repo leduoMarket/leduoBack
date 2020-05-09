@@ -19,4 +19,6 @@ public interface GoodsMapper {
      * @mbg.generated Sat May 02 14:02:10 CST 2020
      */
     List<Goods> selectAll();
+    Goods selectByPrimaryKey(Long gid);
+    Integer delete(Long gid);
 }

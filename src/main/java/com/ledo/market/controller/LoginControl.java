@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.HtmlUtils;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 登录失败跳到登录页面
@@ -25,15 +27,10 @@ public class LoginControl {
     @PostMapping("/login")
     @ResponseBody
     public StatusCodeResult login(@RequestBody User postUser) {
-        //只有在currentUser.login登录成功后才可以，
-        // 获取需要认证的对象，在哪里都可以获取到
         Subject currentUser = SecurityUtils.getSubject();
-        System.out.println("currentUser:"+currentUser);
-        //当前subject未进行登录
         String username = postUser.getUserName();
         String passwd = postUser.getPassword();
-        System.out.println("username:"+username);
-        System.out.println("passwd:"+passwd);
+        //将前端传过来的数据传进token进行保存
         if(!currentUser.isAuthenticated()){
             UsernamePasswordToken token = new UsernamePasswordToken(username,passwd);
             token.setRememberMe(true);
@@ -53,10 +50,11 @@ public class LoginControl {
                 return new StatusCodeResult(404);
             }
         }
-
-        System.out.println("currentUser:"+currentUser);
         return new StatusCodeResult(200);
     }
+    /**
+    * 执行登出动作
+    * */
     @CrossOrigin
     @GetMapping("/logout")
     public StatusCodeResult logout(){
@@ -65,4 +63,19 @@ public class LoginControl {
         //执行退出登录
         return new StatusCodeResult(405);
     }
+
+    /**
+     * author:王梦琼
+     * 如果权限不对就返回到原来的登录页面
+     * **/
+    @CrossOrigin
+    @GetMapping("/identifyFailed")
+    @ResponseBody
+    public Object identifyFailed(){
+        Map<String,Object> map = new HashMap<String,Object>();
+        map.put("code","100");
+        map.put("msg","未登录");
+        return map;
+    }
+
 }
