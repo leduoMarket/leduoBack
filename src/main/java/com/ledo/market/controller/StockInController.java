@@ -14,7 +14,6 @@ public class StockInController {
     StockInMapper stockinmapper;
     @CrossOrigin
     @GetMapping("/stock")
-
     public List<StockIn> selectAll(){
 
         return stockinmapper.selectAll();
