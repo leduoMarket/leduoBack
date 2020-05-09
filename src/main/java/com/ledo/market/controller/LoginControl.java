@@ -57,19 +57,6 @@ public class LoginControl {
         System.out.println("currentUser:"+currentUser);
         return new StatusCodeResult(200);
     }
-
-    @CrossOrigin
-    @GetMapping("/test")
-    public String test(){
-        return "未登录 ";
-    }
-
-    @CrossOrigin
-    @GetMapping("/in")
-    public String in(){
-        return "需登录 ";
-    }
-
     @CrossOrigin
     @GetMapping("/logout")
     public StatusCodeResult logout(){

@@ -14,14 +14,14 @@ public class VenderController {
     @Resource
     VenderMapper vendermapper;
     @CrossOrigin
-    @GetMapping("/Vender")
+    @GetMapping("/home/Vender")
 
     public List<Vender> selectAll(){
         return vendermapper.selectAll();
     }
 
     @CrossOrigin
-    @PostMapping("/addVender")
+    @PostMapping("/home/addVender")
     @ResponseBody
     public StatusCodeResult addvender(@RequestBody Vender reqven){
         System.out.println(reqven.getVid());
@@ -31,7 +31,7 @@ public class VenderController {
     }
 
     @CrossOrigin
-    @DeleteMapping("/delVender")
+    @DeleteMapping("/home/delVender")
     public StatusCodeResult delemp(@RequestParam(value = "venderId") String venderId) {
         System.out.println("empID:" + venderId);
         Long goodsIds;

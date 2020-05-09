@@ -13,14 +13,14 @@ public class StockInController {
     @Resource
     StockInMapper stockinmapper;
     @CrossOrigin
-    @GetMapping("/stock")
+    @GetMapping("/home/stock")
     public List<StockIn> selectAll(){
 
         return stockinmapper.selectAll();
     }
 
     @CrossOrigin
-    @GetMapping("/queryStockIn")
+    @GetMapping("/home/queryStockIn")
     public StockIn selectByPrimaryKey(@RequestParam(value = "inumber") String inumber){
         StockIn s = stockinmapper.selectByInumber(inumber);
         if(s!=null){
@@ -31,7 +31,7 @@ public class StockInController {
     }
 
     @CrossOrigin
-    @PostMapping("/addstock")
+    @PostMapping("/home/addstock")
     @ResponseBody
     public StatusCodeResult addstock(@RequestBody StockIn reqstock){
         System.out.println(reqstock.getGid());
@@ -41,7 +41,7 @@ public class StockInController {
         return new StatusCodeResult(200);
     }
     @CrossOrigin
-    @DeleteMapping("/delstockIn")
+    @DeleteMapping("/home/delstockIn")
     public StatusCodeResult delemp(@RequestParam(value = "stockInId") String stockInId) {
         System.out.println("empID:" + stockInId);
         System.out.println(stockinmapper.delete(stockInId));

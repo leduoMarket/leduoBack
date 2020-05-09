@@ -15,7 +15,7 @@ public class InventoryAccountsController {
     @Resource
     InventoryAccountsMapper inventoryAccountsMapper;
     @CrossOrigin
-    @GetMapping("/inventory")
+    @GetMapping("/home/inventory")
     public List<InventoryAccounts> getAll(){
         return inventoryAccountsMapper.selectAll();
     }
