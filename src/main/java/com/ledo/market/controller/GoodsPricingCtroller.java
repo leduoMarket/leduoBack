@@ -13,12 +13,10 @@ import java.util.List;
 public class GoodsPricingCtroller {
     @Resource
     ProductPricingMapper productPricingmapper;
-    @CrossOrigin
     @GetMapping("/commodityPricing")
     public List<ProductPricing> selectAll(){
         return productPricingmapper.selectAll();
     }
-    @CrossOrigin
     @PostMapping("/addcommodityPricing")
     @ResponseBody
     public StatusCodeResult addpprice(@RequestBody ProductPricing reqpprice){
@@ -27,7 +25,7 @@ public class GoodsPricingCtroller {
         System.out.println(productPricingmapper.insert(reqpprice));
         return new StatusCodeResult(100);
     }
-    @CrossOrigin
+
     @GetMapping("/querycommodityPricing")
     public ProductPricing selectByPrimaryKey(@RequestParam(value = "gid") Long gid){
         ProductPricing s = productPricingmapper.selectByPrimaryKey(gid);
@@ -37,7 +35,7 @@ public class GoodsPricingCtroller {
         }
         return null;
     }
-    @CrossOrigin
+
     @DeleteMapping("/delcommodityPricing")
     public StatusCodeResult delemp(@RequestParam(value = "priceId") String priceId) {
         System.out.println("empID:" + priceId);

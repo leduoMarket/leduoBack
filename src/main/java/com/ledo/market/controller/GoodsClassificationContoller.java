@@ -16,13 +16,11 @@ public class GoodsClassificationContoller {
     @Resource
     GoodsMapper goodsmapper;
 
-    @CrossOrigin
     @GetMapping("/goods")
     public List<Goods> selectAll(){
         return goodsmapper.selectAll();
     }
 
-    @CrossOrigin
     @GetMapping("/queryGoods")
     public Goods selectByPrimaryKey(@RequestParam(value="gid") Long gid){
             Goods s = goodsmapper.selectByPrimaryKey(gid);
@@ -32,8 +30,6 @@ public class GoodsClassificationContoller {
             }
             return null;
         }
-
-        @CrossOrigin
     @PostMapping("/Goods")
     @ResponseBody
         public StatusCodeResult addgoods(@RequestBody Goods reqgood){
@@ -42,7 +38,6 @@ public class GoodsClassificationContoller {
             return new StatusCodeResult(200);
         }
 
-    @CrossOrigin
     @DeleteMapping("/delGoods")
     public StatusCodeResult delgoods(@RequestParam(value = "GoodsId") String GoodsId) {
         System.out.println("empID:" + GoodsId);

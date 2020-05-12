@@ -13,13 +13,11 @@ import java.util.List;
 public class DebtController {
     @Resource
     DebtMapper debtMapper;
-    @CrossOrigin
     @GetMapping("/debt")
     public List<Debt> selectAll(){
         return debtMapper.selectAll();
     }
 
-    @CrossOrigin
     @GetMapping("/queryDebt")
     public Debt selectByPrimaryKey(@RequestParam(value="dnumber") String dnumber){
         Debt s = debtMapper.selectByPrimaryKey(dnumber);
@@ -29,7 +27,6 @@ public class DebtController {
         }
         return null;
     }
-    @CrossOrigin
     @DeleteMapping("/delDebt")
     public StatusCodeResult deldebt(@RequestParam(value = "debtId") String debtId) {
         System.out.println("empID:" + debtId);

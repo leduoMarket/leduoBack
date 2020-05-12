@@ -15,13 +15,11 @@ import java.util.List;
 public class GoodsReturnController {
     @Resource
     ProductReturnMapper productReturnMapper;
-    @CrossOrigin
     @GetMapping("/goodsReturn")
     public List<ProductReturn> selectAll(){
         return productReturnMapper.selectAll();
     }
 
-    @CrossOrigin
     @PostMapping("/addgoodsReturn")
     @ResponseBody
     public StatusCodeResult addpreturn(@RequestBody ProductReturn reqreturn){
@@ -30,7 +28,6 @@ public class GoodsReturnController {
         return new StatusCodeResult(200);
     }
 
-    @CrossOrigin
     @DeleteMapping("/delgoodsReturn")
     public StatusCodeResult delemp(@RequestParam(value = "goodsId") String goodsId) {
         System.out.println("returnID:" + goodsId);
@@ -44,7 +41,6 @@ public class GoodsReturnController {
         return new StatusCodeResult(200);
     }
 
-    @CrossOrigin
     @GetMapping("/querygoodsReturn")
     public ProductReturn selectByPrimaryKey(@RequestParam(value = "gid") Long gid){
         ProductReturn s = productReturnMapper.selectByPrimaryKey(gid);

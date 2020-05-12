@@ -1,12 +1,17 @@
 package com.ledo.market.controller;
+import com.ledo.market.mapper.UserMapper;
 import com.ledo.market.result.StatusCodeResult;
 import com.ledo.market.entity.User;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+
 /**
  * 登录失败跳到登录页面
  * 登录成功跳到home页面
@@ -15,7 +20,8 @@ import java.util.Map;
 
 @RestController
 public class LoginControl {
-    @CrossOrigin
+    @Resource
+    UserMapper userMapper;
     @GetMapping("/noauth")
     @ResponseBody
     public Map<String,Object> authorized(){
@@ -25,43 +31,52 @@ public class LoginControl {
         map.put("message","未经授权，无法访问此页面");
         return map;
     }
-    @CrossOrigin
     @PostMapping("/login")
     @ResponseBody
-    public StatusCodeResult login(@RequestBody User postUser) {
+    public Map<String,Object> login(@RequestBody User postUser) {
         Subject currentUser = SecurityUtils.getSubject();
         String uid = postUser.getUid();
         String passwd = postUser.getPassword();
         System.out.println("uid:"+uid);
         System.out.println("password:"+passwd);
         UsernamePasswordToken token = null;
-        //将前端传过来的数据传进token进行保存
+        Map resultMap = new HashMap();
         if(!currentUser.isAuthenticated()){
             token = new UsernamePasswordToken(uid,passwd);
-            token.setRememberMe(true);
+//            token.setRememberMe(true);
             try {
                 currentUser.login(token);
                 System.out.println("currentUserSession:"+currentUser.getSession().getId());
             }catch (UnknownAccountException ue){
-                //用户名不存在
-//                return new StatusCodeResult(401);
+                resultMap.put("code",401);
+                resultMap.put("msg","用户名不存在");
+                return resultMap;
             }catch (IncorrectCredentialsException ie){
-                //密码错误
-//                return new StatusCodeResult(402);
+                resultMap.put("code",402);
+                resultMap.put("msg","密码错误");
+                return resultMap;
             }catch (LockedAccountException le){
-                //用户被锁定
-//                return new StatusCodeResult(403);
+                resultMap.put("code",403);
+                resultMap.put("msg","用户被锁定");
+                return resultMap;
             }catch(AuthenticationException ae){
-                //其他登录异常
-//                return new StatusCodeResult(404);
+                resultMap.put("code",404);
+                resultMap.put("msg","其他登录异常");
+                return resultMap;
             }
         }
+       Set roles = userMapper.getRolesByuid(postUser.getUid());
+        if(roles.size()==3){
+            resultMap.put("role",1);
+        }else if(roles.size()==2){
+            resultMap.put("role",2);
+        }else if(roles.size()==1){
+            resultMap.put("role",1);
+        }
         System.out.println(currentUser.getSession().getId());
-//        ResultMessage resultmsg = new ResultMessage(200,currentUser.getSession().getId());
-        return new StatusCodeResult(200);
-//        HashMap<String,String> resultMap = new HashMap<String,String>();
-//        resultMap.put("token",token.toString());
-//        return resultMap;
+        resultMap.put("code",200);
+        resultMap.put("sessionId",currentUser.getSession().getId());
+        return  resultMap;
     }
     /**
     * 执行登出动作

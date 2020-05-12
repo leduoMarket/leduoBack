@@ -14,10 +14,9 @@ public class WebMvcConfigure extends WebMvcConfigurationSupport {
      **/
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**").allowedOrigins("htpp://127.0.0.1:8080")
+        registry.addMapping("/**").allowedOrigins("*")
                 .allowedMethods("*").allowedHeaders("*")
                 .allowCredentials(true)
                 .exposedHeaders(HttpHeaders.SET_COOKIE).maxAge(3600L);
     }
-
 }

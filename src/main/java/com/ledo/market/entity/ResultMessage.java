@@ -1,8 +1,4 @@
 package com.ledo.market.entity;
-
-import jdk.nashorn.internal.parser.Token;
-import org.apache.shiro.authc.UsernamePasswordToken;
-
 /**
  * @author 王梦琼
  */
