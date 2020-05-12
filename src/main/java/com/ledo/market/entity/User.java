@@ -1,13 +1,50 @@
 package com.ledo.market.entity;
 
-import java.util.Objects;
+import java.math.BigDecimal;
 
 /**
  * @author 王梦琼
  */
 public class User {
+    private String uid;
     private String userName;
     private String password;
+    private String phone;
+    private String role;
+    private Integer satatus;
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public Integer getSatatus() {
+        return satatus;
+    }
+
+    public void setSatatus(Integer satatus) {
+        this.satatus = satatus;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     public String getUserName() {
         return userName;
     }
@@ -20,7 +57,6 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
     /*
     * 重写equals方法判断两个对象是否相等
     * */

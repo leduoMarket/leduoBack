@@ -15,25 +15,25 @@ import javax.annotation.Resource;
 
 @RestController
 public class LoginControl {
-    @Autowired
-    @Resource
-    UserMapper userMapper;
-    @CrossOrigin
-    @PostMapping("/login")
-    @ResponseBody
-    public StatusCodeResult login(@RequestBody User postUser){
-        String userName = HtmlUtils.htmlEscape(postUser.getUserName());
-        User user = userMapper.getUserByName(userName);
-        int SUCCESSFUL = 200;
-        int FAILED = 400;
-        if(user.equals(postUser)){
-            return new StatusCodeResult(SUCCESSFUL);
-        }else{
-            return new StatusCodeResult(FAILED);
-        }
-    }
-    @GetMapping("/user/{userName}")
-    public User getUser(@PathVariable("userName") String userName){
-        return userMapper.getUserByName(userName);
-    }
+//    @Autowired
+//    @Resource
+//    UserMapper userMapper;
+//    @CrossOrigin
+//    @PostMapping("/login")
+//    @ResponseBody
+//    public StatusCodeResult login(@RequestBody User postUser){
+//        String userName = HtmlUtils.htmlEscape(postUser.getUserName());
+//        User user = userMapper.getUserByName(userName);
+//        int SUCCESSFUL = 200;
+//        int FAILED = 400;
+//        if(user.equals(postUser)){
+//            return new StatusCodeResult(SUCCESSFUL);
+//        }else{
+//            return new StatusCodeResult(FAILED);
+//        }
+//    }
+//    @GetMapping("/user/{userName}")
+//    public User getUser(@PathVariable("userName") String userName){
+//        return userMapper.getUserByName(userName);
+//    }
 }
