@@ -1,5 +1,4 @@
 package com.ledo.market.controller;
-
 import com.ledo.market.entity.Employee;
 import com.ledo.market.mapper.EmployeeMapper;
 import com.ledo.market.result.StatusCodeResult;
@@ -7,44 +6,40 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
-import javax.sql.DataSource;
-import java.util.Collection;
+import javax.websocket.server.PathParam;
 import java.util.List;
-
 /**
  * @author 王梦琼
  */
 @RestController
+@RequestMapping("/admin")
 public class EmployeesController {
-    @Autowired
     @Resource
     EmployeeMapper employeeMapper;
 
     @CrossOrigin
-    @GetMapping("/emps")
-    public List<Employee> list(Model model) {
+    @GetMapping("/home/emps")
+    public List<Employee> list(){
         return employeeMapper.selectAll();
-//        List<Employee> employees = employeeMapper.selectAll();
-//        model.addAttribute("emps",employees);
-//        return employees;
     }
 
     @CrossOrigin
-    @PostMapping("/addemp")
+    @PostMapping("/home/addemp")
     @ResponseBody
-    public StatusCodeResult addemp(@RequestBody Employee reqemp) {
+    public StatusCodeResult addemp(@RequestBody Employee reqemp){
         System.out.print(reqemp.getEid());
         System.out.println(reqemp.getEname());
         System.out.println(employeeMapper.insert(reqemp));
         return new StatusCodeResult(200);
-
     }
 
     @CrossOrigin
-    @DeleteMapping("/delemp")
-    public StatusCodeResult delemp(@RequestParam(value = "empId") int empId) {
-        System.out.println("empID:" + empId);
+    @DeleteMapping("/home/delemp")
+    public StatusCodeResult delemp(@RequestParam(value = "empId") int empId){
+        System.out.println("empID:"+empId);
         System.out.println(employeeMapper.delete(empId));
         return new StatusCodeResult(200);
     }

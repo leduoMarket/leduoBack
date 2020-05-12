@@ -132,4 +132,6 @@ public class InventoryAccounts {
     public void setStockAlert(String stockAlert) {
         this.stockAlert = stockAlert;
     }
+
 }
+

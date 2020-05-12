@@ -3,7 +3,6 @@ package com.ledo.market.controller;
 import com.ledo.market.entity.StockIn;
 import com.ledo.market.mapper.StockInMapper;
 import com.ledo.market.result.StatusCodeResult;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -14,15 +13,14 @@ public class StockInController {
     @Resource
     StockInMapper stockinmapper;
     @CrossOrigin
-    @GetMapping("/stockIn")
-
+    @GetMapping("/home/stock")
     public List<StockIn> selectAll(){
 
         return stockinmapper.selectAll();
     }
 
     @CrossOrigin
-    @GetMapping("/queryStockIn")
+    @GetMapping("/home/queryStockIn")
     public StockIn selectByPrimaryKey(@RequestParam(value = "inumber") String inumber){
         StockIn s = stockinmapper.selectByInumber(inumber);
         if(s!=null){
@@ -33,7 +31,7 @@ public class StockInController {
     }
 
     @CrossOrigin
-    @PostMapping("/addstockIn")
+    @PostMapping("/home/addstock")
     @ResponseBody
     public StatusCodeResult addstock(@RequestBody StockIn reqstock){
         System.out.println(reqstock.getGid());
@@ -43,7 +41,7 @@ public class StockInController {
         return new StatusCodeResult(200);
     }
     @CrossOrigin
-    @DeleteMapping("/delstockIn")
+    @DeleteMapping("/home/delstockIn")
     public StatusCodeResult delemp(@RequestParam(value = "stockInId") String stockInId) {
         System.out.println("empID:" + stockInId);
         System.out.println(stockinmapper.delete(stockInId));
