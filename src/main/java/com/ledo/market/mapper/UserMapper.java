@@ -11,5 +11,6 @@ import java.util.Set;
 @Mapper
 public interface UserMapper {
     public User getUserByUid(String uid);
+    int insert(User record);
     public Set<String> getRolesByuid(String uid);
 }

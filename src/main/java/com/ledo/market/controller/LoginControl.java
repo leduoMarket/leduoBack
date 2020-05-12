@@ -12,6 +12,7 @@ import java.util.Map;
  * 登录成功跳到home页面
  * @author 王梦琼
  */
+
 @RestController
 public class LoginControl {
     @CrossOrigin
