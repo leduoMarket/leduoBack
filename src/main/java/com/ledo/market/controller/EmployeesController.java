@@ -15,6 +15,7 @@ import java.util.List;
  * @author 王梦琼
  */
 @RestController
+@RequestMapping("/admin")
 public class EmployeesController {
     @Resource
     EmployeeMapper employeeMapper;

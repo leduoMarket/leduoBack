@@ -1,4 +1,5 @@
 package com.ledo.market.config;
+import com.ledo.market.entity.Roles;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -9,7 +10,6 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 /**
  * @author 王梦琼
  * 编写shiro的配置类
@@ -18,33 +18,40 @@ import java.util.Map;
 public class ShiroConfig {
     @Bean
     ShiroFilterFactoryBean shiroFilterFactoryBean(@Qualifier("securityManager")DefaultWebSecurityManager securityManager ) {
-        //设置安全管理器
+        //设置安全管理器,包含认证管理器和授权管理器
         ShiroFilterFactoryBean filterBean = new ShiroFilterFactoryBean();
         filterBean.setSecurityManager(securityManager);
         Map<String, String> filterMap = new LinkedHashMap<>();
         filterBean.setLoginUrl("/identifyFailed");
-        filterMap.put("/home/**", "authc");
-        System.out.println("过滤器拦截stock");
+        filterBean.setUnauthorizedUrl("/noauth");
+        filterMap.put("/login","anon");
+        filterMap.put("/home/staff/*","roles[staff]");
+        filterMap.put("/home/treassure/*","roles[treassure]");
+        filterMap.put("/home/admin*","roles[admin]");
+        filterMap.put("/**", "authc");
+        System.out.println("授权和认证拦截器");
         filterBean.setFilterChainDefinitionMap(filterMap);
         return filterBean;
     }
+
     @Bean
-    DefaultWebSecurityManager securityManager() {
+    DefaultWebSecurityManager securityManager(@Qualifier("userRealm") UserRealm userRealm) {
         DefaultWebSecurityManager manager = new DefaultWebSecurityManager();
-        manager.setRealm(userRealm());
+        manager.setRealm(userRealm);
         return manager;
     }
     @Bean
-    public UserRealm userRealm(){
-        return new UserRealm();
+    public UserRealm userRealm(@Qualifier("hashedCredentialsMatcher") HashedCredentialsMatcher hashedCredentialsMatcher){
+        UserRealm userRealm = new UserRealm();
+        userRealm.setCredentialsMatcher(hashedCredentialsMatcher);
+        return userRealm;
     }
     @Bean
     public HashedCredentialsMatcher hashedCredentialsMatcher() {
         HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
         hashedCredentialsMatcher.setHashAlgorithmName("MD5");
-        // 散列算法:这里使用MD5算法;
-        hashedCredentialsMatcher.setHashIterations(1024);
-        // 散列的次数，比如散列两次，相当于 md5(md5(""));
+        hashedCredentialsMatcher.setHashIterations(99);
+        System.out.println("使用MD5进行加密");
         hashedCredentialsMatcher.setStoredCredentialsHexEncoded(true);
         return hashedCredentialsMatcher;
     }
@@ -52,10 +59,4 @@ public class ShiroConfig {
     public SessionManager sessionManager() {
         return null;
     }
-//    @Bean
-//    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(DefaultWebSecurityManager security){
-//        AuthorizationAttributeSourceAdvisor advisor = new AuthorizationAttributeSourceAdvisor();
-//        advisor.setSecurityManager(security);
-//        return advisor;
-//    }
 }

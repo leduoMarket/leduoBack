@@ -1,17 +1,10 @@
 package com.ledo.market.controller;
-
 import com.ledo.market.result.StatusCodeResult;
 import com.ledo.market.entity.User;
-import com.ledo.market.mapper.UserMapper;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
-import org.apache.shiro.authz.UnauthenticatedException;
 import org.apache.shiro.subject.Subject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.HtmlUtils;
-
-import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,19 +13,26 @@ import java.util.Map;
  * 登录成功跳到home页面
  * @author 王梦琼
  */
-
 @RestController
 public class LoginControl {
+    @CrossOrigin
+    @GetMapping("/noauth")
+    @ResponseBody
+    public String authorized(){
+        return "未经授权，无法访问此页面";
+    }
     @CrossOrigin
     @PostMapping("/login")
     @ResponseBody
     public StatusCodeResult login(@RequestBody User postUser) {
         Subject currentUser = SecurityUtils.getSubject();
-        String username = postUser.getUserName();
+        String uid = postUser.getUid();
         String passwd = postUser.getPassword();
+        System.out.println("uid:"+uid);
+        System.out.println("password:"+passwd);
         //将前端传过来的数据传进token进行保存
         if(!currentUser.isAuthenticated()){
-            UsernamePasswordToken token = new UsernamePasswordToken(username,passwd);
+            UsernamePasswordToken token = new UsernamePasswordToken(uid,passwd);
             token.setRememberMe(true);
             try {
                 currentUser.login(token);
@@ -60,10 +60,10 @@ public class LoginControl {
     public StatusCodeResult logout(){
         Subject currentUser = SecurityUtils.getSubject();
         currentUser.logout();
+        System.out.println("执行了登出功能");
         //执行退出登录
         return new StatusCodeResult(405);
     }
-
     /**
      * author:王梦琼
      * 如果权限不对就返回到原来的登录页面
@@ -77,5 +77,4 @@ public class LoginControl {
         map.put("msg","未登录");
         return map;
     }
-
 }

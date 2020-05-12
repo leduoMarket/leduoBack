@@ -11,6 +11,7 @@ import java.math.BigInteger;
 import java.util.List;
 
 @RestController
+@RequestMapping("/staff")
 public class GoodsReturnController {
     @Resource
     ProductReturnMapper productReturnMapper;

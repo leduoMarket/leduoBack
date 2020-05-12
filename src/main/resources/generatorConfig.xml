@@ -13,8 +13,8 @@
 
         <javaClientGenerator type="XMLMAPPER" targetPackage="com.ledo.market.mapper" targetProject="src/main/java"/>
 
-        <table tableName="inventory_accounts" />
-<!--        <table tableName="employee" />-->
+<!--        <table tableName="roles" />-->
+        <table tableName="user_role" />
 <!--        <table tableName="flow_payments" />-->
 <!--        <table tableName="goods" />-->
 <!--        <table tableName="product_pricing" />-->

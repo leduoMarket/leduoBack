@@ -10,6 +10,7 @@ import java.util.List;
 
 /*商品表*/
 @RestController
+@RequestMapping("/staff")
 public class GoodsClassificationContoller {
     @Resource
     GoodsMapper goodsmapper;

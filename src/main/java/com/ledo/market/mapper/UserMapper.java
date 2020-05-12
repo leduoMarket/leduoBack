@@ -8,6 +8,5 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface UserMapper {
-    public User getUserByName(String userName);
-//    public int deleteByName(String userName);
+    public User getUserByUid(String uid);
 }
