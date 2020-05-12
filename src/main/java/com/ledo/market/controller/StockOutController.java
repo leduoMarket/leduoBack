@@ -10,11 +10,12 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @RestController
+@RequestMapping("/staff")
 public class StockOutController {
     @Resource
     StockOutMapper stockoutmapper;
     @CrossOrigin
-    @GetMapping("/home/stockOut")
+    @GetMapping("/stockOut")
 
     public List<StockOut> selectAll(){
         return stockoutmapper.selectAll();
@@ -22,7 +23,7 @@ public class StockOutController {
     /*后面还可以写别的方法*/
 
     @CrossOrigin
-    @GetMapping("/home/querystockOut")
+    @GetMapping("/querystockOut")
     public StockOut selectByPrimaryKey(@RequestParam(value = "onumber") String inumber){
         StockOut s = stockoutmapper.selectByPrimaryKey(inumber);
         if(s!=null){
@@ -33,7 +34,7 @@ public class StockOutController {
     }
 
     @CrossOrigin
-    @PostMapping("/home/addstockOut")
+    @PostMapping("/addstockOut")
     @ResponseBody
     public StatusCodeResult addstockout(@RequestBody StockOut reqstockout){
         System.out.print(reqstockout.getGid());
@@ -42,7 +43,7 @@ public class StockOutController {
     }
 
     @CrossOrigin
-    @DeleteMapping("/home/delstockOut")
+    @DeleteMapping("/delstockOut")
     public StatusCodeResult delemp(@RequestParam(value = "stockOutId") String stockOutId) {
         System.out.println("empID:" + stockOutId);
         System.out.println(stockoutmapper.delete(stockOutId));

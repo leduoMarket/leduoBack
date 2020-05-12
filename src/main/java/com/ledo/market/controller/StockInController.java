@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @RestController
+@RequestMapping("/staff")
 public class StockInController {
     @Resource
     StockInMapper stockinmapper;
@@ -20,7 +21,7 @@ public class StockInController {
     }
 
     @CrossOrigin
-    @GetMapping("/home/queryStockIn")
+    @GetMapping("/queryStockIn")
     public StockIn selectByPrimaryKey(@RequestParam(value = "inumber") String inumber){
         StockIn s = stockinmapper.selectByInumber(inumber);
         if(s!=null){
@@ -31,7 +32,7 @@ public class StockInController {
     }
 
     @CrossOrigin
-    @PostMapping("/home/addstock")
+    @PostMapping("/addstock")
     @ResponseBody
     public StatusCodeResult addstock(@RequestBody StockIn reqstock){
         System.out.println(reqstock.getGid());
@@ -41,7 +42,7 @@ public class StockInController {
         return new StatusCodeResult(200);
     }
     @CrossOrigin
-    @DeleteMapping("/home/delstockIn")
+    @DeleteMapping("/delstockIn")
     public StatusCodeResult delemp(@RequestParam(value = "stockInId") String stockInId) {
         System.out.println("empID:" + stockInId);
         System.out.println(stockinmapper.delete(stockInId));

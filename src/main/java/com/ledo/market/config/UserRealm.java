@@ -9,11 +9,8 @@ import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
-
 import javax.annotation.Resource;
-import java.util.HashSet;
 import java.util.Set;
-
 /**
  * @author 王梦琼
  * 自定义realm，继承AuthorizingRealm
@@ -25,6 +22,7 @@ public class UserRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         UsernamePasswordToken upToken = (UsernamePasswordToken)token;
+        char[] password = upToken.getPassword();
         String uid = upToken.getUsername();
         System.out.println("鉴权uid:"+uid);
         User user = userMapper.getUserByUid(uid);
@@ -34,23 +32,20 @@ public class UserRealm extends AuthorizingRealm {
         Object principal = uid;
         Object credentials = user.getPassword();
         ByteSource credentialsSalt = ByteSource.Util.bytes(principal);
-        Object passwordResult = new SimpleHash("MD5",credentials,credentialsSalt,99);
+        Object passwordResult = new SimpleHash("MD5",password,credentialsSalt,99);
         System.out.println("数据库存储的密码："+passwordResult);
         return new SimpleAuthenticationInfo(principal,credentials,credentialsSalt,getName());
     }
-
-
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         String uid = (String) principalCollection.getPrimaryPrincipal();
         System.out.println("授权uid:"+uid);
-        Set<String> roles = new HashSet<>();
-        roles.add("staff");
-        System.out.println(roles);
+        //根据用户名联合查询出数据库中该用户名拥有的权限
+        Set<String> roles = userMapper.getRolesByuid(uid);
+        System.out.println("数据库查询出来的角色有："+roles);
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         info.setRoles(roles);
         return info;
     }
-
 }

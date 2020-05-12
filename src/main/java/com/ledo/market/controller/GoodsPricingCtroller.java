@@ -14,12 +14,12 @@ public class GoodsPricingCtroller {
     @Resource
     ProductPricingMapper productPricingmapper;
     @CrossOrigin
-    @GetMapping("/home/commodityPricing")
+    @GetMapping("/commodityPricing")
     public List<ProductPricing> selectAll(){
         return productPricingmapper.selectAll();
     }
     @CrossOrigin
-    @PostMapping("/home/addcommodityPricing")
+    @PostMapping("/addcommodityPricing")
     @ResponseBody
     public StatusCodeResult addpprice(@RequestBody ProductPricing reqpprice){
         System.out.println(reqpprice.getGid());
@@ -28,7 +28,7 @@ public class GoodsPricingCtroller {
         return new StatusCodeResult(100);
     }
     @CrossOrigin
-    @GetMapping("/home/querycommodityPricing")
+    @GetMapping("/querycommodityPricing")
     public ProductPricing selectByPrimaryKey(@RequestParam(value = "gid") Long gid){
         ProductPricing s = productPricingmapper.selectByPrimaryKey(gid);
         if(s!=null){
@@ -38,7 +38,7 @@ public class GoodsPricingCtroller {
         return null;
     }
     @CrossOrigin
-    @DeleteMapping("/home/delcommodityPricing")
+    @DeleteMapping("/delcommodityPricing")
     public StatusCodeResult delemp(@RequestParam(value = "priceId") String priceId) {
         System.out.println("empID:" + priceId);
         Long goodsIds;

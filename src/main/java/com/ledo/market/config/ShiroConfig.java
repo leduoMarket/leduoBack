@@ -22,18 +22,20 @@ public class ShiroConfig {
         ShiroFilterFactoryBean filterBean = new ShiroFilterFactoryBean();
         filterBean.setSecurityManager(securityManager);
         Map<String, String> filterMap = new LinkedHashMap<>();
+        //登录失败跳转
         filterBean.setLoginUrl("/identifyFailed");
-        filterBean.setUnauthorizedUrl("/noauth");
+        //login请求任何人都可以访问
         filterMap.put("/login","anon");
-        filterMap.put("/home/staff/*","roles[staff]");
-        filterMap.put("/home/treassure/*","roles[treassure]");
-        filterMap.put("/home/admin*","roles[admin]");
-        filterMap.put("/**", "authc");
+        //设置未授权的访问页面
+        filterBean.setUnauthorizedUrl("/noauth");
+        //资源根据角色来分类
+        filterMap.put("/staff/**","roles[staff]");
+        filterMap.put("/treasure/**","roles[treasure,staff]");
+        filterMap.put("/admin/**","roles[admin,staff,treasure]");
         System.out.println("授权和认证拦截器");
         filterBean.setFilterChainDefinitionMap(filterMap);
         return filterBean;
     }
-
     @Bean
     DefaultWebSecurityManager securityManager(@Qualifier("userRealm") UserRealm userRealm) {
         DefaultWebSecurityManager manager = new DefaultWebSecurityManager();

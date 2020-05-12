@@ -9,7 +9,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @RestController
-@RequestMapping("/staff")
+@RequestMapping("/treasure")
 public class DebtController {
     @Resource
     DebtMapper debtMapper;

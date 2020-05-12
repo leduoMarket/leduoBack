@@ -10,18 +10,19 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @RestController
+@RequestMapping("/staff")
 public class VenderController {
     @Resource
     VenderMapper vendermapper;
     @CrossOrigin
-    @GetMapping("/home/Vender")
+    @GetMapping("/Vender")
 
     public List<Vender> selectAll(){
         return vendermapper.selectAll();
     }
 
     @CrossOrigin
-    @PostMapping("/home/addVender")
+    @PostMapping("/addVender")
     @ResponseBody
     public StatusCodeResult addvender(@RequestBody Vender reqven){
         System.out.println(reqven.getVid());
@@ -29,9 +30,8 @@ public class VenderController {
         System.out.println(vendermapper.insert(reqven));
         return new StatusCodeResult(200);
     }
-
     @CrossOrigin
-    @DeleteMapping("/home/delVender")
+    @DeleteMapping("/delVender")
     public StatusCodeResult delemp(@RequestParam(value = "venderId") String venderId) {
         System.out.println("empID:" + venderId);
         Long goodsIds;

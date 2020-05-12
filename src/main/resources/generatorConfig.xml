@@ -12,7 +12,6 @@
         <sqlMapGenerator targetPackage="mybatis.mappers" targetProject="src/main/resources"/>
 
         <javaClientGenerator type="XMLMAPPER" targetPackage="com.ledo.market.mapper" targetProject="src/main/java"/>
-
 <!--        <table tableName="roles" />-->
         <table tableName="user_role" />
 <!--        <table tableName="flow_payments" />-->

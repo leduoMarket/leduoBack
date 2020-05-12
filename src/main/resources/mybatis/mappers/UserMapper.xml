@@ -6,4 +6,9 @@
   <select id = "getUserByUid" resultType="com.ledo.market.entity.User">
             select * from user where uid= #{uid}
     </select>
+    <select id = "getRolesByuid" resultType="java.lang.String">
+            select role from roles where rid in (
+            select rid from user_role where uid in (
+            select uid from user where uid = #{uid}))
+    </select>
 </mapper>

@@ -21,13 +21,13 @@ public class EmployeesController {
     EmployeeMapper employeeMapper;
 
     @CrossOrigin
-    @GetMapping("/home/emps")
+    @GetMapping("/emps")
     public List<Employee> list(){
         return employeeMapper.selectAll();
     }
 
     @CrossOrigin
-    @PostMapping("/home/addemp")
+    @PostMapping("/addemp")
     @ResponseBody
     public StatusCodeResult addemp(@RequestBody Employee reqemp){
         System.out.print(reqemp.getEid());
@@ -37,7 +37,7 @@ public class EmployeesController {
     }
 
     @CrossOrigin
-    @DeleteMapping("/home/delemp")
+    @DeleteMapping("/delemp")
     public StatusCodeResult delemp(@RequestParam(value = "empId") int empId){
         System.out.println("empID:"+empId);
         System.out.println(employeeMapper.delete(empId));

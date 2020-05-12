@@ -10,7 +10,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @RestController
-@RequestMapping("/treassure")
+@RequestMapping("/treasure")
 public class FlowPaymentController {
     @Resource
     FlowPaymentsMapper flowPaymentsMapper;
