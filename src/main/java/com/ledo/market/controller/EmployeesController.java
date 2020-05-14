@@ -29,23 +29,4 @@ public class EmployeesController {
 //        model.addAttribute("emps",employees);
 //        return employees;
     }
-
-    @CrossOrigin
-    @PostMapping("/addemp")
-    @ResponseBody
-    public StatusCodeResult addemp(@RequestBody Employee reqemp) {
-        System.out.print(reqemp.getEid());
-        System.out.println(reqemp.getEname());
-        System.out.println(employeeMapper.insert(reqemp));
-        return new StatusCodeResult(200);
-
-    }
-
-    @CrossOrigin
-    @DeleteMapping("/delemp")
-    public StatusCodeResult delemp(@RequestParam(value = "empId") int empId) {
-        System.out.println("empID:" + empId);
-        System.out.println(employeeMapper.delete(empId));
-        return new StatusCodeResult(200);
-    }
 }

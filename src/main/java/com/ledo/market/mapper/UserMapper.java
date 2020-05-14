@@ -10,7 +10,7 @@ import java.util.List;
  */
 @Mapper
 public interface UserMapper {
-    public User getUserByUid(String uid,String pwd1,String pwd2);
+    int getUserByUid(String uid,String pwd1,String pwd2);
     int insert(User record);
     int updateByPrimaryKey(User record);
     List<User> selectAll();
