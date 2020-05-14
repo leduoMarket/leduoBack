@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @RestController
+@RequestMapping("/staff")
 public class VenderController {
     @Resource
     VenderMapper vendermapper;
@@ -29,7 +30,6 @@ public class VenderController {
         System.out.println(vendermapper.insert(reqven));
         return new StatusCodeResult(200);
     }
-
     @CrossOrigin
     @DeleteMapping("/delVender")
     public StatusCodeResult delemp(@RequestParam(value = "venderId") String venderId) {
