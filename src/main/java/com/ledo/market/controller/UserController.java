@@ -90,7 +90,7 @@ public class UserController {
     @CrossOrigin
     @PostMapping("/changeRole")
     @ResponseBody
-    public StatusCodeResult updaterole(@RequestParam(value = "uid") String uid,@RequestParam(value = "urole") String urole,@RequestParam(value = "ustatus") Integer ustatus) {
+    public StatusCodeResult updaterole(@RequestParam(value = "uid") String uid,@RequestParam(value = "uRole") String urole,@RequestParam(value = "uStatus") Integer ustatus) {
         System.out.println("UID:" + uid);
         System.out.println("role:" + urole);
         System.out.println("status:" + ustatus);
