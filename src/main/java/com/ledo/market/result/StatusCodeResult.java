@@ -6,15 +6,12 @@ package com.ledo.market.result;
  */
 public class StatusCodeResult {
     private int code;
-
     public StatusCodeResult(int code) {
         this.code = code;
     }
-
     public int getCode() {
         return code;
     }
-
     public void setCode(int code) {
         this.code = code;
     }

@@ -6,18 +6,15 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
 import org.springframework.web.bind.annotation.*;
-
 import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-
 /**
  * 登录失败跳到登录页面
  * 登录成功跳到home页面
  * @author 王梦琼
  */
-
 @RestController
 public class LoginControl {
     @Resource

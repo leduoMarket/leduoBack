@@ -2,6 +2,7 @@ package com.ledo.market.config;
 
 import com.ledo.market.entity.User;
 import com.ledo.market.mapper.UserMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -15,6 +16,7 @@ import java.util.Set;
  * @author 王梦琼
  * 自定义realm，继承AuthorizingRealm
  */
+@Slf4j
 public class UserRealm extends AuthorizingRealm {
     @Resource
     private UserMapper userMapper;
@@ -43,6 +45,7 @@ public class UserRealm extends AuthorizingRealm {
         System.out.println("授权uid:"+uid);
         //根据用户名联合查询出数据库中该用户名拥有的权限
         Set<String> roles = userMapper.getRolesByuid(uid);
+        log.info("- "+uid+" 用户拥有的角色"+roles);
         System.out.println("数据库查询出来的角色有："+roles);
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         info.setRoles(roles);

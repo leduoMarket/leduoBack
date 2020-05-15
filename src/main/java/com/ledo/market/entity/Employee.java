@@ -2,12 +2,14 @@ package com.ledo.market.entity;
 
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
  * @author 王梦琼
+ * 支持序列化的类，支持redis
  */
-public class Employee {
+public class Employee implements Serializable {
     private Integer eid;
     private String ename;
     private String ephone;
