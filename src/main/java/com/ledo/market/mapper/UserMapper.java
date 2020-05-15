@@ -3,6 +3,8 @@ package com.ledo.market.mapper;
 import com.ledo.market.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 import java.util.Set;
 
 /**
@@ -10,7 +12,13 @@ import java.util.Set;
  */
 @Mapper
 public interface UserMapper {
-    public User getUserByUid(String uid);
+    int getUserByUid(String uid,String pwd1,String pwd2);
+    int getUserByRole(String uid,String urole,Integer ustatus);
     int insert(User record);
-    public Set<String> getRolesByuid(String uid);
+    int updateByPrimaryKey(User record);
+    List<User> selectAll();
+    User selectByPrimaryKey(String uid);
+    String delete(String uid);
 }
+
+
