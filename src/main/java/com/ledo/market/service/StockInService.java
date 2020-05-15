@@ -28,15 +28,14 @@ public class StockInService {
         if(list == null){
             synchronized (this){
                 list = (List<StockIn>) redisUtil.get("stockInList");
-
                 if(list==null){
                     list = stockInMapper.selectAll();
                     redisUtil.set("stockInList",list);
-                    log.info("- 从数据库中查询入库单数据");
+                    log.info("-从数据库中查询入库单数据");
                 }
             }
         }else{
-            log.info("- 从缓存中查询入库单数据");
+            log.info("-从缓存中查询入库单数据");
         }
         if(list==null){
             resultUtil.setCode(201);
@@ -48,9 +47,21 @@ public class StockInService {
         resultUtil.setData(list);
         return  resultUtil;
     }
-    public ResultUtil stockInAddf(StockIn stockIn){
-        redisUtil.set("addstockInObj",stockIn);
-        stockInMapper.insert(stockIn);
-        return null;
+    /**
+     * 增加入库单的服务类,
+     * 增加的时候先存入缓存，再存入数据库
+     * */
+    public ResultUtil stockInAddfunc(StockIn stockInRecord){
+        ResultUtil resultUtil = new ResultUtil();
+        redisUtil.set("addstockInObj",stockInRecord);
+        if(stockInMapper.insert(stockInRecord)==0){
+            log.error("获取到入库单记录，但是插入失败");
+            resultUtil.setCode(201);
+            resultUtil.setMessage("入库单记录插入失败");
+        };
+        resultUtil.setCode(200);
+        log.info("插入代码为"+stockInRecord.getInumber()+"的商品"+stockInRecord.getIcount()+"个");
+        resultUtil.setMessage("插入入库单记录成功");
+        return resultUtil;
     }
 }

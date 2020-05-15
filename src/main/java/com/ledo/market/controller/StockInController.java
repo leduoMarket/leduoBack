@@ -22,37 +22,26 @@ public class StockInController {
     StockInMapper stockinmapper;
     @GetMapping("stockInList")
     public ResultUtil getAllRecord(){
-        log.info("- 调用stockInService方法");
+        log.info("-调用stockInService方法");
        return  stockInService.getAll();
     }
-//    @GetMapping("queryStockIn")
-//    public StockIn selectByPrimaryKey(@RequestParam(value = "inumber") String inumber){
-//        StockIn s = stockinmapper.selectByInumber(inumber);
-//        if(s!=null){
-//            System.out.println("stockInItem"+s.getInumber());
-//            return s;
-//        }
-//        return null;
-//    }
-
+    /**
+     * 增加入库单的接口
+     * */
     @PostMapping("stockInAdd")
     @ResponseBody
-    public StatusCodeResult addstock(@RequestBody StockIn addStockIn){
+    public ResultUtil addstock(@RequestBody StockIn addStockInRecord){
        ResultUtil resultUtil = new ResultUtil();
-        if(addStockIn!=null){
-//            statusCodeResult = stockInService.stockInAddf(addStockIn);
+        if(addStockInRecord!=null){
+            resultUtil = stockInService.stockInAddfunc(addStockInRecord);
         }else{
+            log.error("-没有获取到需要插入的入库单记录，插入失败");
             resultUtil.setCode(201);
-           resultUtil.setMessage("没有获取到需要插入的对象");
-           resultUtil.setData("");
+            resultUtil.setMessage("没有获取到需要插入的对象");
         }
-
-//        System.out.println(reqstock.getGid());
-//        System.out.println(reqstock.getIdate());
-//        System.out.println(reqstock.getIcount());
-//        System.out.println(stockinmapper.insert(reqstock));
-        return new StatusCodeResult(200);
+        return resultUtil;
     }
+
     @CrossOrigin
     @DeleteMapping("delstockIn")
     public StatusCodeResult delemp(@RequestParam(value = "stockInId") String stockInId) {

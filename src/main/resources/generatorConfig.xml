@@ -12,8 +12,7 @@
         <sqlMapGenerator targetPackage="mybatis.mappers" targetProject="src/main/resources"/>
 
         <javaClientGenerator type="XMLMAPPER" targetPackage="com.ledo.market.mapper" targetProject="src/main/java"/>
-<!--        <table tableName="roles" />-->
-        <table tableName="user_role" />
+        <table tableName="log" />
 <!--        <table tableName="flow_payments" />-->
 <!--        <table tableName="goods" />-->
 <!--        <table tableName="product_pricing" />-->
@@ -23,10 +22,5 @@
 <!--        <table tableName="user" />-->
 <!--        <table tableName="user_log" />-->
 <!--        <table tableName="vender" />-->
-        <!--        <table tableName="orders" domainObjectName="Orders"-->
-        <!--               enableInsert="true"-->
-        <!--               enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"-->
-        <!--               enableSelectByExample="false" selectByExampleQueryId="false">-->
-        <!--        </table>-->
     </context>
 </generatorConfiguration>

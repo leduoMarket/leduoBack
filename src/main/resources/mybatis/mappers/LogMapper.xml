@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ledo.market.mapper.LogMapper">
+  <resultMap id="BaseResultMap" type="com.ledo.market.entity.Log">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="message" jdbcType="VARCHAR" property="message" />
+    <result column="level_string" jdbcType="VARCHAR" property="levelString" />
+    <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="logger_name" jdbcType="VARCHAR" property="loggerName" />
+  </resultMap>
+  <select id="selectSome" resultMap="BaseResultMap">
+    select id, message, level_string, created_time
+    from log limit 200
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, message, level_string, created_time
+    from log
+  </select>
+</mapper>

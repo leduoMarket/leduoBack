@@ -69,7 +69,7 @@ public class LogDBAppender extends DBAppenderBase<ILoggingEvent> {
      * 自己写新增sql语句,对应到logging数据表
      * */
     private static String buildInsertSQL() {
-        return "INSERT INTO `logging`(`message`,`level_string`,`created_time`,`logger_name`)" +
+        return "INSERT INTO `log`(`message`,`level_string`,`created_time`,`logger_name`)" +
                 "VALUES (?,?,?,?)";
     }
     @Override
