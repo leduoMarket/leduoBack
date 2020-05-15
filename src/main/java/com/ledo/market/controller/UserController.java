@@ -79,5 +79,22 @@ public class UserController {
         }
         return null;
     }
+    //在权限界面显示数据
+    @CrossOrigin
+    @GetMapping("/getRole")
+    public List<User> list1(){
+        return usermapper.selectAll();
+    }
 
+    //在权限页面进行更改权限
+    @CrossOrigin
+    @PostMapping("/changeRole")
+    @ResponseBody
+    public StatusCodeResult updaterole(@RequestParam(value = "uid") String uid,@RequestParam(value = "urole") String urole,@RequestParam(value = "ustatus") Integer ustatus) {
+        System.out.println("UID:" + uid);
+        System.out.println("role:" + urole);
+        System.out.println("status:" + ustatus);
+        System.out.println(usermapper.getUserByRole(uid,urole,ustatus));
+        return new StatusCodeResult(200);
+    }
 }

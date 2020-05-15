@@ -11,6 +11,7 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
     int getUserByUid(String uid,String pwd1,String pwd2);
+    int getUserByRole(String uid,String urole,Integer ustatus);
     int insert(User record);
     int updateByPrimaryKey(User record);
     List<User> selectAll();

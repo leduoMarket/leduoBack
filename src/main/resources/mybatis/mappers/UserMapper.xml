@@ -57,6 +57,12 @@
         password = #{pwd2,jdbcType=VARCHAR}
         where uid = #{uid,jdbcType=VARCHAR} AND password = #{pwd1,jdbcType=VARCHAR}
     </update>
+    <update id="getUserByRole" parameterType="com.ledo.market.entity.User">
+        update user
+        set
+        role = #{urole,jdbcType=VARCHAR} , satatus = #{ustatus,jdbcType=INTEGER}
+        where uid = #{uid,jdbcType=VARCHAR}
+    </update>
 
 </mapper>
 <!--<?xml version="1.0" encoding="UTF-8"?>-->
