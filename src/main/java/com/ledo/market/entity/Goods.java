@@ -1,6 +1,4 @@
 package com.ledo.market.entity;
-
-import java.math.BigDecimal;
 import java.sql.Date;
 
 public class Goods {
@@ -8,7 +6,7 @@ public class Goods {
     private String gname;
     private String categories;
     private String address;
-    private String charge_unit;
+    private String chargeUnit;
     private Date gdate;
 
     public Long getGid() {
@@ -39,11 +37,11 @@ public class Goods {
         this.address = address;
     }
 
-    public String getCharge_unit() {
-        return charge_unit;
+    public String getChargeUnit() {
+        return chargeUnit;
     }
-    public void setCharge_unit(String charge_unit) {
-        this.charge_unit = charge_unit;
+    public void setChargeUnit(String chargeUnit) {
+        this.chargeUnit = chargeUnit;
     }
 
     public Date getGdate() {

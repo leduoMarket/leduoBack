@@ -10,16 +10,15 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @RestController
+@RequestMapping("/treasure")
 public class FlowPaymentController {
     @Resource
     FlowPaymentsMapper flowPaymentsMapper;
-    @CrossOrigin
     @GetMapping("/payments")
     public List<FlowPayments> selectAll(){
         return flowPaymentsMapper.selectAll();
     }
 
-    @CrossOrigin
     @GetMapping("/queryPaymentOfFlowCount")
     public FlowPayments selectByPrimaryKey(@RequestParam(value="pnumber") Integer pnumber){
         FlowPayments s = flowPaymentsMapper.selectByPrimaryKey(pnumber);
@@ -30,7 +29,6 @@ public class FlowPaymentController {
         return null;
     }
 
-    @CrossOrigin
     @PostMapping("/addpayment")
     @ResponseBody
     public StatusCodeResult addgoods(@RequestBody FlowPayments reqgood){
@@ -43,7 +41,6 @@ public class FlowPaymentController {
         return new StatusCodeResult(200);
     }
 
-    @CrossOrigin
     @DeleteMapping("/delpayment")
     public StatusCodeResult delgoods(@RequestParam(value = "stockInId") String stockInId) {
         System.out.println("empID:" + stockInId);

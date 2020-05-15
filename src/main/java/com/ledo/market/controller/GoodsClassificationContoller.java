@@ -8,19 +8,19 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.List;
 
-/*商品表*/
+/**商品表
+ * @author lenovo**/
 @RestController
+@RequestMapping("/staff")
 public class GoodsClassificationContoller {
     @Resource
     GoodsMapper goodsmapper;
 
-    @CrossOrigin
     @GetMapping("/goods")
     public List<Goods> selectAll(){
         return goodsmapper.selectAll();
     }
 
-    @CrossOrigin
     @GetMapping("/queryGoods")
     public Goods selectByPrimaryKey(@RequestParam(value="gid") Long gid){
             Goods s = goodsmapper.selectByPrimaryKey(gid);
@@ -30,8 +30,6 @@ public class GoodsClassificationContoller {
             }
             return null;
         }
-
-        @CrossOrigin
     @PostMapping("/Goods")
     @ResponseBody
         public StatusCodeResult addgoods(@RequestBody Goods reqgood){
@@ -40,7 +38,6 @@ public class GoodsClassificationContoller {
             return new StatusCodeResult(200);
         }
 
-    @CrossOrigin
     @DeleteMapping("/delGoods")
     public StatusCodeResult delgoods(@RequestParam(value = "GoodsId") String GoodsId) {
         System.out.println("empID:" + GoodsId);
