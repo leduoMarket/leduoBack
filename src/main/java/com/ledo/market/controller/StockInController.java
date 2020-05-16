@@ -1,10 +1,11 @@
 package com.ledo.market.controller;
-
 import com.ledo.market.entity.StockIn;
 import com.ledo.market.mapper.StockInMapper;
 import com.ledo.market.result.StatusCodeResult;
+import com.ledo.market.service.StockInService;
+import com.ledo.market.utils.ResultUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
@@ -14,6 +15,8 @@ import java.util.Map;
 @RequestMapping("/staff")
 public class StockInController {
     @Resource
+    StockInService stockInService;
+    @Resource
     StockInMapper stockinmapper;
 
     @CrossOrigin
@@ -21,31 +24,29 @@ public class StockInController {
     public List<StockIn> selectAll(){
 
         return stockinmapper.selectAll();
+    @GetMapping("stockInList")
+    public ResultUtil getAllRecord(){
+        log.info("-调用stockInService方法");
+       return  stockInService.getAll();
     }
-
-    @CrossOrigin
-    @GetMapping("/queryStockIn")
-    public StockIn selectByPrimaryKey(@RequestParam(value = "inumber") String inumber){
-        StockIn s = stockinmapper.selectByInumber(inumber);
-        if(s!=null){
-            System.out.println("stockInItem"+s.getInumber());
-            return s;
-        }
-        return null;
-    }
-
-    @CrossOrigin
-    @PostMapping("/addstock")
+    /**
+     * 增加入库单的接口
+     * */
+    @PostMapping("stockInAdd")
     @ResponseBody
-    public StatusCodeResult addstock(@RequestBody StockIn reqstock){
-        System.out.println(reqstock.getGid());
-        System.out.println(reqstock.getIdate());
-        System.out.println(reqstock.getIcount());
-        System.out.println(stockinmapper.insert(reqstock));
-        return new StatusCodeResult(200);
+    public ResultUtil addstock(@RequestBody StockIn addStockInRecord){
+       ResultUtil resultUtil = new ResultUtil();
+        if(addStockInRecord!=null){
+            resultUtil = stockInService.stockInAddfunc(addStockInRecord);
+        }else{
+            log.error("-没有获取到需要插入的入库单记录，插入失败");
+            resultUtil.setCode(201);
+            resultUtil.setMessage("没有获取到需要插入的对象");
+        }
+        return resultUtil;
     }
-    @CrossOrigin
-    @DeleteMapping("/delstockIn")
+
+    @DeleteMapping("delstockIn")
     public StatusCodeResult delemp(@RequestParam(value = "stockInId") String stockInId) {
         System.out.println("empID:" + stockInId);
         System.out.println(stockinmapper.delete(stockInId));
