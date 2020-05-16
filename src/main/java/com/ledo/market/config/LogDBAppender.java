@@ -3,6 +3,9 @@ package com.ledo.market.config;
 import ch.qos.logback.classic.spi.CallerData;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.db.DBAppenderBase;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.context.annotation.Configuration;
 
 import java.lang.reflect.Method;
@@ -16,6 +19,7 @@ import java.sql.Timestamp;
  * 自定义存入数据库的文件的格式配置文件
  */
 @Configuration
+@Slf4j
 public class LogDBAppender extends DBAppenderBase<ILoggingEvent> {
     protected static final Method GET_GENERATED_KEYS_METHOD;
     /**
@@ -39,6 +43,7 @@ public class LogDBAppender extends DBAppenderBase<ILoggingEvent> {
      * logger_name 全类名
      * */
     static final int LOGGER_NAME = 4;
+    static final int HANDLER_NAME = 5;
 
     /**
      * 以-开头则记录到数据库文件中
@@ -69,14 +74,13 @@ public class LogDBAppender extends DBAppenderBase<ILoggingEvent> {
      * 自己写新增sql语句,对应到logging数据表
      * */
     private static String buildInsertSQL() {
-        return "INSERT INTO `log`(`message`,`level_string`,`created_time`,`logger_name`)" +
-                "VALUES (?,?,?,?)";
+        return "INSERT INTO `log`(`message`,`level_string`,`created_time`,`logger_name`,`handler`)" +
+                "VALUES (?,?,?,?,?)";
     }
     @Override
     protected Method getGeneratedKeysMethod() {
         return GET_GENERATED_KEYS_METHOD;
     }
-
     @Override
     protected String getInsertSQL() {
         return insertSQL;
@@ -89,6 +93,8 @@ public class LogDBAppender extends DBAppenderBase<ILoggingEvent> {
         String message = event.getFormattedMessage();
         // 如果只想存储自己打印的日志，可以这样写日志：logger.info("- XXXX")
         // 判断日志消息首字母为 - 的日志，记录到数据库表
+        Subject currentUser = SecurityUtils.getSubject();
+        log.info("-currentUser:"+currentUser.getPrincipal().toString());
         if(message.startsWith(StartWithPaternThenSaveToDB)){
             stmt.setString(MESSAGE, message);
             // event.getLevel().toString() 日志级别
@@ -97,10 +103,10 @@ public class LogDBAppender extends DBAppenderBase<ILoggingEvent> {
             stmt.setTimestamp(CREATE_TIME, new Timestamp(event.getTimeStamp()));
             // event.getLoggerName() 全类名
             stmt.setString(LOGGER_NAME, event.getLoggerName());
+            stmt.setString(HANDLER_NAME,currentUser.getPrincipal().toString());
         }
 
     }
-
     @Override
     protected void subAppend(ILoggingEvent eventObject, Connection connection, PreparedStatement statement) throws Throwable {
         bindLoggingEventWithInsertStatement(statement, eventObject);

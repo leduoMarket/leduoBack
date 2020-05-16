@@ -8,6 +8,13 @@ public class Log {
     private String levelString;
     private Date createdTime;
     private String loggerName;
+    private String handler;
+    public String getHandler() {
+        return handler;
+    }
+    public void setHandler(String handler) {
+        this.handler = handler;
+    }
     public Long getId() {
         return id;
     }

@@ -31,11 +31,14 @@ public class UserRealm extends AuthorizingRealm {
         if(user==null){
             throw new UnknownAccountException("账户不存在");
         }
+        if(user.getSatatus()==0){
+            throw  new LockedAccountException("账户被锁定，不能登录");
+        }
         Object principal = uid;
         Object credentials = user.getPassword();
         ByteSource credentialsSalt = ByteSource.Util.bytes(principal);
         Object passwordResult = new SimpleHash("MD5",password,credentialsSalt,99);
-        System.out.println("数据库存储的密码："+passwordResult);
+        log.info("-登录校验时候获取到的uid:"+uid+"获取到的密码为："+password+"加入的盐值为："+credentialsSalt+"加密后的密码为："+passwordResult);
         return new SimpleAuthenticationInfo(principal,credentials,credentialsSalt,getName());
     }
 
