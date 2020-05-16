@@ -1,9 +1,12 @@
 spring:
   datasource:
     username: root
-    password: 123456
-    url: jdbc:mysql://127.0.0.1:3306/leduo?serverTimezone=UTC&characterEncoding=UTF-8
+    password: root
+    url: jdbc:mysql://127.0.0.1:3306/leduo_market?serverTimezone=UTC&characterEncoding=UTF-8
     driver-class-name: com.mysql.cj.jdbc.Driver
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd
     
 mybatis:
   config-location: classpath:mybatis/mybatis-config.xml

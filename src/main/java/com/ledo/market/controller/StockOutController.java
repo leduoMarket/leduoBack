@@ -7,6 +7,7 @@ import com.ledo.market.result.StatusCodeResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -48,5 +49,19 @@ public class StockOutController {
         System.out.println("empID:" + stockOutId);
         System.out.println(stockoutmapper.delete(stockOutId));
         return new StatusCodeResult(200);
+    }
+
+    @CrossOrigin
+    @GetMapping("/analyseoutdate")
+    public List<Date> putstockoutdate(){
+        List<Date> outdate = stockoutmapper.putstockoutdate();
+        return outdate;
+    }
+
+    @CrossOrigin
+    @GetMapping("/analyseoutsum")
+    public List<Integer> putstockoutsum(){
+        return stockoutmapper.putstockoutsum();
+
     }
 }

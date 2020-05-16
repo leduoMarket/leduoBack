@@ -3,6 +3,7 @@ package com.ledo.market.mapper;
 import com.ledo.market.entity.StockOut;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.Date;
 import java.util.List;
 
 @Mapper
@@ -47,4 +48,6 @@ public interface StockOutMapper {
      */
     int updateByPrimaryKey(StockOut record);
     String delete(String onumber);
+    List<Date> putstockoutdate();
+    List<Integer> putstockoutsum();
 }

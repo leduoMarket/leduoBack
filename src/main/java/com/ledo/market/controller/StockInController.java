@@ -6,6 +6,7 @@ import com.ledo.market.result.StatusCodeResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -13,6 +14,7 @@ import java.util.List;
 public class StockInController {
     @Resource
     StockInMapper stockinmapper;
+
     @CrossOrigin
     @GetMapping("/stock")
     public List<StockIn> selectAll(){
@@ -47,6 +49,20 @@ public class StockInController {
         System.out.println("empID:" + stockInId);
         System.out.println(stockinmapper.delete(stockInId));
         return new StatusCodeResult(200);
+    }
+
+    @CrossOrigin
+    @GetMapping("/analyseindate")
+    public List<Date> putstockindate(){
+        List<Date> indate = stockinmapper.putstockindate();
+        System.out.println(indate);
+        return indate;
+    }
+    @CrossOrigin
+    @GetMapping("/analyseinsum")
+    public List<Integer> putstockinsum(){
+        return stockinmapper.putstockinsum();
+
     }
 
 }
