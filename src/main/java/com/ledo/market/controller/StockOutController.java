@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/staff")
@@ -58,9 +59,10 @@ public class StockOutController {
         return outdate;
     }
 
+    //给分析图表传入数据
     @CrossOrigin
     @GetMapping("/analyseoutsum")
-    public List<Integer> putstockoutsum(){
+    public List<Map> putstockoutsum(){
         return stockoutmapper.putstockoutsum();
 
     }

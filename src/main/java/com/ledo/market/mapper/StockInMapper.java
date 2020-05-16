@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface StockInMapper{
@@ -14,7 +15,7 @@ public interface StockInMapper{
     StockIn selectByPrimaryKey(String inumber);
     List<StockIn> selectAll();
     int updateByPrimaryKey(StockIn record);
-    List<Date> putstockindate();
+//    List<Date> putstockindate();
     StockIn selectByInumber(String inumber);
-    List<Integer> putstockinsum();
+    List<Map> putstockinsum();
 }

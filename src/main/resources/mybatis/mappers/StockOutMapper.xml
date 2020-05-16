@@ -53,7 +53,7 @@
   <select id="putstockoutdate" resultType="Date">
       select odate from stock_out group by odate
     </select>
-  <select id="putstockoutsum" resultType="Integer">
-      select sum(opayment) from stock_out group by odate;
+  <select id="putstockoutsum" resultType="java.util.Map">
+      select odate,sum(opayment) as sumout from stock_out group by odate;
     </select>
 </mapper>

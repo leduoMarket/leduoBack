@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/staff")
@@ -50,17 +51,10 @@ public class StockInController {
         System.out.println(stockinmapper.delete(stockInId));
         return new StatusCodeResult(200);
     }
-
-    @CrossOrigin
-    @GetMapping("/analyseindate")
-    public List<Date> putstockindate(){
-        List<Date> indate = stockinmapper.putstockindate();
-        System.out.println(indate);
-        return indate;
-    }
+    //给分析数据图表传入数据
     @CrossOrigin
     @GetMapping("/analyseinsum")
-    public List<Integer> putstockinsum(){
+    public List<Map> putstockinsum(){
         return stockinmapper.putstockinsum();
 
     }

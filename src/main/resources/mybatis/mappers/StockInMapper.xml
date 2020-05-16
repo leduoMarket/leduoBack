@@ -31,8 +31,8 @@
       #{idate,jdbcType=DATE}, #{iprice,jdbcType=DECIMAL}, #{ipayment,jdbcType=DECIMAL},
       #{icount,jdbcType=INTEGER})
   </insert>
-  <select id="putstockinsum" resultType="Integer">
-      select sum(ipayment) from stock_in group by idate;
+  <select id="putstockinsum" resultType="java.util.Map">
+      select idate,sum(ipayment) as sumin from stock_in group by idate;
     </select>
 
 </mapper>

@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface StockOutMapper {
@@ -49,5 +50,5 @@ public interface StockOutMapper {
     int updateByPrimaryKey(StockOut record);
     String delete(String onumber);
     List<Date> putstockoutdate();
-    List<Integer> putstockoutsum();
+    List<Map> putstockoutsum();
 }
