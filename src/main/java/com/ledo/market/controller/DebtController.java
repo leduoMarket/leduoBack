@@ -1,36 +1,34 @@
 package com.ledo.market.controller;
 
-import com.ledo.market.entity.Debt;
-import com.ledo.market.mapper.DebtMapper;
-import com.ledo.market.result.StatusCodeResult;
+import com.ledo.market.service.DebtService;
+import com.ledo.market.utils.ResultUtil;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
 
+/**
+ * @author lenovo
+ * 查询关于欠款单相关的信息，提供接口
+ */
 @RestController
 @RequestMapping("/treasure")
 public class DebtController {
     @Resource
-    DebtMapper debtMapper;
+    DebtService debtService = new DebtService();
     @GetMapping("/debt")
-    public List<Debt> selectAll(){
-        return debtMapper.selectAll();
+    public ResultUtil selectAll(){
+        return debtService.getAll();
     }
 
-    @GetMapping("/queryDebt")
-    public Debt selectByPrimaryKey(@RequestParam(value="dnumber") String dnumber){
-        Debt s = debtMapper.selectByPrimaryKey(dnumber);
-        if(s!=null){
-            System.out.println("returnItem"+s.getDnumber());
-            return s;
-        }
-        return null;
-    }
     @DeleteMapping("/delDebt")
-    public StatusCodeResult deldebt(@RequestParam(value = "debtId") String debtId) {
-        System.out.println("empID:" + debtId);
-        System.out.println(debtMapper.delete(debtId));
-        return new StatusCodeResult(200);
+    public ResultUtil deldebt(@RequestParam(value = "debtId") String debtId) {
+        ResultUtil resultUtil = new ResultUtil();
+        if(debtId==null){
+            resultUtil.setCode(201);
+            resultUtil.setMessage("被删除的欠款单号不能为空");
+            return resultUtil;
+        }
+        return debtService.delDebtRecord(debtId);
     }
 }

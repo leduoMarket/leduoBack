@@ -4,7 +4,7 @@ import lombok.Data;
 import java.sql.Date;
 
 @Data
-public class Goods {
+public class Product {
     private Long gid;
     private String gname;
     private String categories;

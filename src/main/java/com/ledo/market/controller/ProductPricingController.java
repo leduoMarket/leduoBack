@@ -2,7 +2,6 @@ package com.ledo.market.controller;
 
 import com.ledo.market.entity.ProductPricing;
 import com.ledo.market.mapper.ProductPricingMapper;
-import com.ledo.market.result.StatusCodeResult;
 import com.ledo.market.service.ProductPricingService;
 import com.ledo.market.utils.ResultUtil;
 import org.springframework.web.bind.annotation.*;
@@ -40,20 +39,6 @@ public class ProductPricingController {
        }
        return productPricingService.addProductPricingRecord(productPricingInfoRecord);
     }
-
-    /**
-     * 根据gid获取商品定价信息
-     * */
-//    @GetMapping("/querycommodityPricing")
-//    public ProductPricing selectByPrimaryKey(@RequestParam(value = "gid") Long gid){
-//        ProductPricing s = productPricingmapper.selectByPrimaryKey(gid);
-//        if(s!=null){
-//            System.out.println("priceItem"+s.getGid());
-//            return s;
-//        }
-//        return null;
-//    }
-
     /**
      * 删除商品定价信息
      * */

@@ -1,12 +1,10 @@
 package com.ledo.market.controller;
 
-import com.ledo.market.entity.Goods;
-import com.ledo.market.mapper.ProductMapper;
-import com.ledo.market.result.StatusCodeResult;
+import com.ledo.market.entity.Product;
+import com.ledo.market.service.ProductService;
+import com.ledo.market.utils.ResultUtil;
 import org.springframework.web.bind.annotation.*;
-
 import javax.annotation.Resource;
-import java.util.List;
 
 /**商品表
  * @author lenovo**/
@@ -14,37 +12,32 @@ import java.util.List;
 @RequestMapping("/staff")
 public class ProductController {
     @Resource
-    ProductMapper goodsmapper;
+    ProductService productService;
 
-    @GetMapping("/goods")
-    public List<Goods> selectAll(){
-        return goodsmapper.selectAll();
+    @GetMapping("/productList")
+    public ResultUtil selectAll(){
+        return productService.getAllProductInfo();
     }
-
-    @GetMapping("/queryGoods")
-    public Goods selectByPrimaryKey(@RequestParam(value="gid") Long gid){
-            Goods s = goodsmapper.selectByPrimaryKey(gid);
-            if(s!=null){
-                System.out.println("returnItem"+s.getGid());
-                return s;
-            }
-            return null;
-        }
-    @PostMapping("/Goods")
+    @PostMapping("/addProduct")
     @ResponseBody
-        public StatusCodeResult addgoods(@RequestBody Goods reqgood){
-            System.out.print(reqgood.getGname());
-            System.out.println(goodsmapper.insert(reqgood));
-            return new StatusCodeResult(200);
+        public ResultUtil addgoods(@RequestBody Product productRecord){
+            ResultUtil resultUtil = new ResultUtil();
+           if(productRecord==null){
+               resultUtil.setCode(201);
+               resultUtil.setMessage("插入的商品信息为空");
+               return  resultUtil;
+           }
+            return productService.addProductRecord(productRecord);
         }
-
-    @DeleteMapping("/delGoods")
-    public StatusCodeResult delgoods(@RequestParam(value = "GoodsId") String GoodsId) {
-        System.out.println("empID:" + GoodsId);
-        Long goodsIds;
-        goodsIds = Long.parseLong(GoodsId);
-        System.out.println(goodsmapper.delete(goodsIds));
-        return new StatusCodeResult(200);
+    @DeleteMapping("/delProduct")
+    public ResultUtil delgoods(@RequestParam(value = "gid") Long gid) {
+        ResultUtil resultUtil = new ResultUtil();
+        if(gid==null){
+           resultUtil.setCode(201);
+           resultUtil.setMessage("被删除的商品码不能为空");
+           return resultUtil;
+       }
+        return productService.delProductRecord(gid);
     }
 
 }

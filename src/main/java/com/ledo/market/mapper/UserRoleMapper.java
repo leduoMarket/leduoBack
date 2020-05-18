@@ -5,10 +5,6 @@ import org.apache.ibatis.annotations.Mapper;
  * */
 @Mapper
 public interface UserRoleMapper {
-//    int insert(UserRole record);
-//    UserRole selectByPrimaryKey(Integer urid);
-//    List<UserRole> selectAll();
-//    int updateByPrimaryKey(UserRole record);
     /**
      * 如果是管理员则默认在User_role表里面增加rid为3的记录
      * */

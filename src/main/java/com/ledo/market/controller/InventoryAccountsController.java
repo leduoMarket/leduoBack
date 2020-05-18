@@ -1,6 +1,8 @@
 package com.ledo.market.controller;
 import com.ledo.market.entity.InventoryAccounts;
 import com.ledo.market.mapper.InventoryAccountsMapper;
+import com.ledo.market.utils.RedisUtil;
+import com.ledo.market.utils.ResultUtil;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -8,28 +10,37 @@ import java.util.List;
 
 /**
  * @author lenovo
+ * 对库存账进行查询支持
  */
 @RestController
 @RequestMapping("/staff")
 public class InventoryAccountsController {
-    /*注解存在的位置有将就吗*/
-
     @Resource
     InventoryAccountsMapper inventoryAccountsMapper;
-    @CrossOrigin
-    @GetMapping("/inventory")
-    public List<InventoryAccounts> getAll(){
-        return inventoryAccountsMapper.selectAll();
-    }
-    @CrossOrigin
-    @GetMapping("/queryInventory")
-    public InventoryAccounts selectByPrimaryKey(@RequestParam(value = "gid") Long gid){
-        InventoryAccounts s = inventoryAccountsMapper.selectByPrimaryKey(gid);
-        if(s!=null){
-            System.out.println("returnItem"+s.getGid());
-            return s;
+    @Resource
+    RedisUtil redisUtil;
+    @GetMapping("/incentoryAccounts")
+    public ResultUtil getAll(){
+        ResultUtil resultUtil = new ResultUtil();
+        List <InventoryAccounts> inventoryAccountsList = (List<InventoryAccounts>) redisUtil.get("inventoryAccountsList");
+        if(inventoryAccountsList==null){
+            inventoryAccountsList = (List<InventoryAccounts>) redisUtil.get("inventoryAccountsList");
+            if(inventoryAccountsList==null){
+                synchronized (this){
+                    inventoryAccountsList = inventoryAccountsMapper.selectAll();
+                    redisUtil.set("inventoryAccountsList",inventoryAccountsList);
+                }
+            }
         }
-        return null;
+        if(inventoryAccountsList==null){
+            resultUtil.setCode(201);
+            resultUtil.setMessage("没有查询到有关库存的消息");
+            return resultUtil;
+        }
+        resultUtil.setCode(200);
+       resultUtil.setData(inventoryAccountsList);
+       return resultUtil;
     }
+
 }
 

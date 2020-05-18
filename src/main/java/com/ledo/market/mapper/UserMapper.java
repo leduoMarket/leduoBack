@@ -2,6 +2,7 @@ package com.ledo.market.mapper;
 
 import com.ledo.market.entity.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.dao.DuplicateKeyException;
 
 import java.util.Date;
 import java.util.List;
@@ -30,7 +31,7 @@ public interface UserMapper {
      /**
      * 注册流程实际是在向user表中插入一条数据
      * */
-    int insert(User record);
+    int insert(User record) throws DuplicateKeyException;
 
 
     /**

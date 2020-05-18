@@ -58,7 +58,7 @@ public class StockOutService {
         if(influenceLine==0){
             resultUtil.setCode(201);
             resultUtil.setMessage("增加记录失败");
-            log.error("-出库单号为"+stockOutRecord.getOcount()+"的记录插入失败");
+            log.error("-出库单号为"+stockOutRecord.getOnumber()+"的记录插入失败");
             return resultUtil;
         }
         try {
@@ -69,7 +69,7 @@ public class StockOutService {
         redisUtil.del("stockOutList");
         resultUtil.setCode(200);
         resultUtil.setMessage("插入成功");
-        log.error("-出库单号为"+stockOutRecord.getOcount()+"的记录插入成功");
+        log.error("-出库单号为"+stockOutRecord.getOnumber()+"的记录插入成功");
         return resultUtil;
     }
     /**

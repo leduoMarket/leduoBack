@@ -1,7 +1,6 @@
 package com.ledo.market.controller;
 import com.ledo.market.entity.StockOut;
 import com.ledo.market.mapper.StockOutMapper;
-import com.ledo.market.result.StatusCodeResult;
 import com.ledo.market.service.StockOutService;
 import com.ledo.market.utils.ResultUtil;
 import org.springframework.web.bind.annotation.*;
@@ -24,16 +23,6 @@ public class StockOutController {
         return stockOutService.getAllStockOutRecord();
     }
     /*后面还可以写别的方法*/
-//    @CrossOrigin
-//    @GetMapping("/querystockOut")
-//    public StockOut selectByPrimaryKey(@RequestParam(value = "onumber") String inumber){
-//        StockOut s = stockoutmapper.selectByPrimaryKey(inumber);
-//        if(s!=null){
-//            System.out.println("stockOutItem"+s.getOnumber());
-//            return s;
-//        }
-//        return null;
-//    }
 
     /**
      * 增加某一条出库记录

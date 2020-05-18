@@ -1,8 +1,11 @@
 package com.ledo.market.entity;
 
+import lombok.Data;
+
 /**
  * @author 王梦琼
  */
+@Data
 public class User {
     private String uid;
     private String userName;
@@ -10,51 +13,8 @@ public class User {
     private String phone;
     private String role;
     private Integer status;
-    public String getRole() {
-        return role;
-    }
 
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public String getUid() {
-        return uid;
-    }
-
-    public void setUid(String uid) {
-        this.uid = uid;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-    public String getPassword() {
-        return password;
-    }
-    public void setPassword(String password) {
-        this.password = password;
-    }
-    /*
+    /**
     * 重写equals方法判断两个对象是否相等
     * */
     @Override

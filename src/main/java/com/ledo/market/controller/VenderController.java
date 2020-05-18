@@ -1,12 +1,9 @@
 package com.ledo.market.controller;
 
-
 import com.ledo.market.entity.Vender;
-import com.ledo.market.result.StatusCodeResult;
 import com.ledo.market.service.VenderService;
 import com.ledo.market.utils.ResultUtil;
 import org.springframework.web.bind.annotation.*;
-
 import javax.annotation.Resource;
 
 @RestController

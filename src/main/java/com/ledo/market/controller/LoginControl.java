@@ -1,6 +1,5 @@
 package com.ledo.market.controller;
 import com.ledo.market.mapper.UserMapper;
-import com.ledo.market.result.StatusCodeResult;
 import com.ledo.market.entity.User;
 import com.ledo.market.service.UserService;
 import com.ledo.market.utils.ResultUtil;
