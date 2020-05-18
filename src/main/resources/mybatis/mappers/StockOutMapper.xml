@@ -50,4 +50,10 @@
   <select id="delete" resultType="com.ledo.market.entity.StockOut">
    delete from stock_out where onumber=#{onumber}
   </select>
+  <select id="putstockoutdate" resultType="Date">
+      select odate from stock_out group by odate
+    </select>
+  <select id="putstockoutsum" resultType="java.util.Map">
+      select odate,sum(opayment) as sumout from stock_out group by odate;
+    </select>
 </mapper>

@@ -15,6 +15,10 @@
       from stock_in
     </select>
 
+  <select id="putstockindate" resultType="Date">
+      select idate from stock_in group by idate
+    </select>
+
   <select id="delete" parameterType="com.ledo.market.entity.StockIn">
    delete from stock_in where inumber=#{inumber}
   </select>
@@ -27,5 +31,8 @@
       #{idate,jdbcType=DATE}, #{iprice,jdbcType=DECIMAL}, #{ipayment,jdbcType=DECIMAL},
       #{icount,jdbcType=INTEGER})
   </insert>
+  <select id="putstockinsum" resultType="java.util.Map">
+      select idate,sum(ipayment) as sumin from stock_in group by idate;
+    </select>
 
 </mapper>

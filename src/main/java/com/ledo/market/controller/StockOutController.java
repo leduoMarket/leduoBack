@@ -7,7 +7,9 @@ import com.ledo.market.utils.ResultUtil;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/staff")
@@ -60,5 +62,20 @@ public class StockOutController {
             return resultUtil;
         }
         return stockOutService.delStockOutRecord(onumber);
+    }
+
+    @CrossOrigin
+    @GetMapping("/analyseoutdate")
+    public List<Date> putstockoutdate(){
+        List<Date> outdate = stockoutmapper.putstockoutdate();
+        return outdate;
+    }
+
+    //给分析图表传入数据
+    @CrossOrigin
+    @GetMapping("/analyseoutsum")
+    public List<Map> putstockoutsum(){
+        return stockoutmapper.putstockoutsum();
+
     }
 }

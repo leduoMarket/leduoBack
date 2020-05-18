@@ -7,6 +7,9 @@ import com.ledo.market.utils.ResultUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author 王梦琼
@@ -52,4 +55,12 @@ public class StockInController {
         }
         return stockInService.delStockInRecord(inumber);
     }
+    //给分析数据图表传入数据
+    @CrossOrigin
+    @GetMapping("/analyseinsum")
+    public List<Map> putstockinsum(){
+        return stockinmapper.putstockinsum();
+
+    }
+
 }
