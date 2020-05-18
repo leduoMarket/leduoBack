@@ -1,7 +1,5 @@
 package com.ledo.market.entity;
 
-import java.math.BigDecimal;
-
 /**
  * @author 王梦琼
  */
@@ -11,7 +9,7 @@ public class User {
     private String password;
     private String phone;
     private String role;
-    private Integer satatus;
+    private Integer status;
     public String getRole() {
         return role;
     }
@@ -20,12 +18,12 @@ public class User {
         this.role = role;
     }
 
-    public Integer getSatatus() {
-        return satatus;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setSatatus(Integer satatus) {
-        this.satatus = satatus;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public String getUid() {

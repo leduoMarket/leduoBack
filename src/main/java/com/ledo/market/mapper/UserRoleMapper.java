@@ -9,7 +9,6 @@ public interface UserRoleMapper {
 //    UserRole selectByPrimaryKey(Integer urid);
 //    List<UserRole> selectAll();
 //    int updateByPrimaryKey(UserRole record);
-
     /**
      * 如果是管理员则默认在User_role表里面增加rid为3的记录
      * */
@@ -22,4 +21,6 @@ public interface UserRoleMapper {
      * 如果是财务则默认在User_role表里面增加rid为2的记录
      * */
     Integer addTreasure(String uid);
+
+    Integer deleteByUid(String uid);
 }

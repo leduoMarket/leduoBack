@@ -1,7 +1,7 @@
 package com.ledo.market.controller;
 
 import com.ledo.market.entity.Goods;
-import com.ledo.market.mapper.GoodsMapper;
+import com.ledo.market.mapper.ProductMapper;
 import com.ledo.market.result.StatusCodeResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,9 +12,9 @@ import java.util.List;
  * @author lenovo**/
 @RestController
 @RequestMapping("/staff")
-public class GoodsClassificationContoller {
+public class ProductController {
     @Resource
-    GoodsMapper goodsmapper;
+    ProductMapper goodsmapper;
 
     @GetMapping("/goods")
     public List<Goods> selectAll(){

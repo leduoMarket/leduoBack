@@ -12,6 +12,9 @@ import java.util.Set;
  */
 @Mapper
 public interface UserMapper {
+
+    Integer updatePhoneOrName(String uid,String userName,String phone);
+
     /**
      * 根据员工号获取到员工，用于登录流程使用
      * */
@@ -36,17 +39,11 @@ public interface UserMapper {
      * @return 返回修改密码影响的行数
      * */
     int changePassWord(String uid,String pwd2);
-
-
     /**
      * 根据员工号更新员工的角色和账号锁定状态
      * */
     int updateRoleStatusByUid(String uid,String urole,Integer ustatus);
 
-    /**
-     * 根据传过来的员工编辑员工界面的信息
-     * */
-    int updateUserInfo(User record);
     /**
      * 查询出所有员工的员工信息
      * */
@@ -55,11 +52,10 @@ public interface UserMapper {
      * 获取当前登录账号的员工信息
      * */
     User selectCurrentUserInfo(String uid);
-
     /**
      * 员工界面删除员工信息
      * */
-    String delete(String uid);
+    Integer delete(String uid);
 }
 
 

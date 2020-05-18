@@ -1,11 +1,13 @@
 package com.ledo.market.utils;
 
+import lombok.Data;
 import org.springframework.stereotype.Component;
 
 /**
  * @author 王梦琼
  * 返回消息的工具类
  */
+@Data
 @Component
 public class ResultUtil {
     /**
@@ -16,33 +18,32 @@ public class ResultUtil {
      * 返回成功或失败消息
      * */
     public String message;
-
-    public int getCode() {
-        return code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public Object getData() {
-        return data;
-    }
-
-    public void setData(Object data) {
-        this.data = data;
-    }
-
     /**
      * 返回携带的消息
      * */
     public Object data;
+
+//    public int getCode() {
+//        return code;
+//    }
+//
+//    public void setCode(int code) {
+//        this.code = code;
+//    }
+//
+//    public String getMessage() {
+//        return message;
+//    }
+//
+//    public void setMessage(String message) {
+//        this.message = message;
+//    }
+//
+//    public Object getData() {
+//        return data;
+//    }
+//
+//    public void setData(Object data) {
+//        this.data = data;
+//    }
 }

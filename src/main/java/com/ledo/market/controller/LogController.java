@@ -17,16 +17,15 @@ import java.util.Random;
  */
 
 @RestController
-@RequestMapping("/admin")
 public class LogController {
     @Resource
     LogService logService;
-    //查询的时候默认查询前200条记录，
-    @GetMapping("someLog")
+    //查询的时候默认查询前200条记录，查询当前用户的两百条记录
+    @GetMapping("/someLog")
     public ResultUtil someLog(){
         return logService.getSomeLog();
     }
-    @GetMapping("allLog")
+    @GetMapping("/allLog")
     public ResultUtil getAllLog(){
         return logService.getAllLogs();
     }

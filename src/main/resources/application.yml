@@ -8,6 +8,7 @@ spring:
   redis:
     host: 127.0.0.1
     port: 6379
+    timeout: 600s
 
 mybatis:
   config-location: classpath:mybatis/mybatis-config.xml

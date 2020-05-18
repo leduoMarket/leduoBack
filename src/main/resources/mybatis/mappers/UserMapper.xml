@@ -4,42 +4,36 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ledo.market.mapper.UserMapper">
     <resultMap id="BaseResultMap" type="com.ledo.market.mapper.UserMapper">
-
         <id column="uid" jdbcType="VARCHAR" property="uid" />
         <result column="user_name" jdbcType="VARCHAR" property="userName" />
         <result column="password1" jdbcType="VARCHAR" property="password" />
         <result column="phone" jdbcType="VARCHAR" property="phone" />
         <result column="role" jdbcType="VARCHAR" property="role" />
-        <result column="satatus" jdbcType="INTEGER" property="satatus" />
+        <result column="status" jdbcType="INTEGER" property="status" />
     </resultMap>
 <!--    查询出所有员工的员工信息-->
     <select id="selectAll" resultType="com.ledo.market.entity.User">
-      select uid,user_name,password,phone,role,satatus
+      select uid,user_name,phone,role,status
       from user
     </select>
 
-<!--    员工界面删除员工信息，并且在员工角色表中删除对应的角色-->
-    <select id="delete" parameterType="com.ledo.market.entity.User">
+<!--    员工界面删除员工信息-->
+    <delete id="delete" parameterType="java.lang.String">
         delete from user where uid=#{uid}
-        delete from user_role where uid = #{uid}
-    </select>
+    </delete>
 
 <!--    向员工表插入新的员工-->
     <insert id="insert" parameterType="com.ledo.market.entity.User">
-    insert into user (uid,user_name,password,phone,role,satatus)
+    insert into user (uid,user_name,password,phone,role,status)
     values (#{uid,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
       #{phone,jdbcType=VARCHAR}, #{role,jdbcType=VARCHAR}, 0)
   </insert>
 
-<!--    根据传过来的员工编辑员工界面的信息-->
-    <update id="updateUserInfo" parameterType="com.ledo.market.entity.User">
-        update user
-        set uid = #{uid,jdbcType=VARCHAR},
+<!--    修改员工的电话或者姓名-->
+    <update id="updatePhoneOrName" parameterType="java.lang.String">
+        update user set
         user_name = #{userName,jdbcType=VARCHAR},
-        password = #{password,jdbcType=VARCHAR},
-        phone = #{phone,jdbcType=VARCHAR},
-        role = #{role,jdbcType=VARCHAR},
-        satatus = #{satatus,jdbcType=INTEGER}
+        phone = #{phone,jdbcType=VARCHAR}
         where uid = #{uid,jdbcType=VARCHAR}
     </update>
 
@@ -49,16 +43,20 @@
     </update>
 
 <!--    根据员工号设置员工角色和账号锁定状态-->
-    <update id="updateRoleStatusByUid" parameterType="com.ledo.market.entity.User">
+    <update id="updateRoleStatusByUid">
         update user
         set
-        role = #{urole,jdbcType=VARCHAR} , satatus = #{ustatus,jdbcType=INTEGER}
+        role = #{urole,jdbcType=VARCHAR} , status = #{ustatus,jdbcType=INTEGER}
         where uid = #{uid,jdbcType=VARCHAR}
     </update>
 
 <!--    根据Uid获取员工-->
     <select id = "getUserByUid" resultType="com.ledo.market.entity.User">
             select * from user where uid= #{uid}
+    </select>
+
+    <select id = "selectCurrentUserInfo" resultType="com.ledo.market.entity.User">
+            select uid,user_name,phone,role from user where uid= #{uid}
     </select>
 
 <!--    根据角色员工id获取员工角色-->

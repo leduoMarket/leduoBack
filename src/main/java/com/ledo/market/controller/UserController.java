@@ -1,17 +1,10 @@
 package com.ledo.market.controller;
-
 import com.ledo.market.entity.User;
-import com.ledo.market.mapper.UserMapper;
-import com.ledo.market.result.StatusCodeResult;
 import com.ledo.market.service.UserService;
-import com.ledo.market.utils.EncodingUtil;
 import com.ledo.market.utils.ResultUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-
 import javax.annotation.Resource;
-import javax.websocket.server.PathParam;
-import java.util.List;
 
 /**
  * @author 王梦琼
@@ -23,49 +16,57 @@ import java.util.List;
 public class UserController {
     @Resource
     UserService userService;
-    @Resource
-    ResultUtil resultUtil;
-    @Resource
-    UserMapper usermapper;
+    @PutMapping("updatePhoneOrName")
+    public ResultUtil updatePhoneOrName(@RequestBody User user){
+        String uid = user.getUid();
+        String userName = user.getUserName();
+        String phone = user.getPhone();
+        ResultUtil resultUtil = new ResultUtil();
+        if(uid==null){
+            resultUtil.setCode(201);
+            resultUtil.setMessage("修改的用户名为空，无法进行修改");
+            return resultUtil;
+        }
+        return userService.updatePhoneOrName(uid,userName,phone);
+    }
     /**
      * 在员工表面上展示所有员工信息数据
      * */
-    @GetMapping("emps")
-    public List<User> list(){
-        return usermapper.selectAll();
+    @GetMapping("getAllemployees")
+    public ResultUtil list(){
+        ResultUtil resultUtil = new ResultUtil();
+        return userService.getAllemps();
     }
-
     /**
      * 根据传过来的员工编辑员工界面的信息
      * */
-    @CrossOrigin
-    @PostMapping("editemp")
+    @PutMapping("changeStatus")
     @ResponseBody
-    public StatusCodeResult updateuser(@RequestBody User requser) {
-        System.out.println(usermapper.updateUserInfo(requser));
-        return new StatusCodeResult(200);
+    public ResultUtil updateuser(@RequestBody User user){
+        //@RequestParam(value = "uid") String uid,@RequestParam(value = "role") String role,@RequestParam(value = "status") Integer status
+        String uid = user.getUid();
+        String role = user.getRole();
+        Integer status = user.getStatus();
+        System.out.println("uid:"+uid+"role:"+role+" status:"+status);
+        ResultUtil resultUtil = new ResultUtil();
+        if(uid==null){
+            resultUtil.setCode(201);
+            resultUtil.setMessage("被编辑的用户不能为空");
+            return resultUtil;
+        }
+       return userService.editStatusOrRole(uid,role,status);
     }
+
     /**
      * 员工界面删除员工信息
      * */
     @DeleteMapping("delemp")
-    public StatusCodeResult delemp(@RequestParam(value = "empId") String empId){
-        System.out.println("empID:"+empId);
-        System.out.println(usermapper.delete(empId));
-        return new StatusCodeResult(200);
-    }
-    /**
-     * 向当前登录user的User信息界面传递当前登录账号的信息
-     * */
-    @CrossOrigin
-    @GetMapping("/getUserInfo")
-    public User getLogingUserInfo(@RequestParam(value = "uid") String uid){
-        User s = usermapper.selectCurrentUserInfo(uid);
-        if(s!=null){
-            System.out.println("uid"+s.getUid());
-            System.out.println("password"+s.getPassword());
-            return s;
-        }
-        return null;
+    public ResultUtil delemp(@RequestParam(value = "empId") String empId){
+        ResultUtil resultUtil = new ResultUtil();
+        if(empId==null){
+           resultUtil.setCode(201);
+           resultUtil.setMessage("被删除的员工号为空");
+       }
+       return userService.deleteEmployee(empId);
     }
 }

@@ -8,12 +8,23 @@
     <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
     <result column="logger_name" jdbcType="VARCHAR" property="loggerName" />
   </resultMap>
+<!--  管理员获取所有用户的日志信息-->
   <select id="selectSome" resultMap="BaseResultMap">
-    select id, message, level_string, created_time
-    from log limit 200
+    select id, message, level_string, created_time,handler
+    from log order by created_time desc limit 10
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
-    select id, message, level_string, created_time
-    from log
+    select id, message, level_string, created_time ,handler
+    from log order by created_time desc
+  </select>
+
+<!--  普通用户获取自己的 用户信息-->
+  <select id="getSomeUserLog" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select id, message, level_string, created_time,handler
+    from log where handler = #{uid} order by created_time desc limit 10
+  </select>
+  <select id="getAllUserLog" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select id, message, level_string, created_time,handler
+    from log where handler = #{uid} order by created_time desc
   </select>
 </mapper>

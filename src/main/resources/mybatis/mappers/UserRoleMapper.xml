@@ -10,7 +10,6 @@
     insert into user_role (uid, rid)
     values ( #{uid}, 1)
   </insert>
-
   <insert id="addStaff" parameterType="java.lang.String">
     insert into user_role (uid, rid)
     values ( #{uid}, 3)
@@ -19,10 +18,11 @@
     insert into user_role (uid, rid)
     values ( #{uid}, 2)
   </insert>
-<!--  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">-->
-<!--    delete from user_role-->
-<!--    where urid = #{urid,jdbcType=INTEGER}-->
-<!--  </delete>-->
+
+  <delete id="deleteByUid" parameterType="java.lang.String">
+    delete from user_role
+    where uid = #{uid}
+  </delete>
 <!--  <update id="updateByPrimaryKey" parameterType="com.ledo.market.entity.UserRole">-->
 <!--    update user_role-->
 <!--    set uid = #{uid,jdbcType=INTEGER},-->

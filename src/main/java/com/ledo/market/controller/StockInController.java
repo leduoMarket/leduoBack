@@ -20,9 +20,9 @@ public class StockInController {
     StockInService stockInService;
     @Resource
     StockInMapper stockinmapper;
+    //使用了redis缓存
     @GetMapping("stockInList")
     public ResultUtil getAllRecord(){
-        log.info("-调用stockInService方法");
        return  stockInService.getAll();
     }
     /**
@@ -43,9 +43,13 @@ public class StockInController {
     }
 
     @DeleteMapping("delstockIn")
-    public StatusCodeResult delemp(@RequestParam(value = "stockInId") String stockInId) {
-        System.out.println("empID:" + stockInId);
-        System.out.println(stockinmapper.delete(stockInId));
-        return new StatusCodeResult(200);
+    public ResultUtil delemp(@RequestParam(value = "inumber") String inumber) {
+        ResultUtil resultUtil = new ResultUtil();
+        if(inumber==null){
+            resultUtil.setCode(201);
+            resultUtil.setMessage("要删除的入库单号为空");
+            return resultUtil;
+        }
+        return stockInService.delStockInRecord(inumber);
     }
 }
