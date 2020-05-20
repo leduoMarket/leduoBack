@@ -53,12 +53,7 @@ public class StockInController {
         }
         return stockInService.delStockInRecord(inumber);
     }
-    //给分析数据图表传入数据
-    @CrossOrigin
-    @GetMapping("/analyseinsum")
-    public List<Map> putstockinsum(){
-        return stockinmapper.putstockinsum();
 
-    }
+
 
 }

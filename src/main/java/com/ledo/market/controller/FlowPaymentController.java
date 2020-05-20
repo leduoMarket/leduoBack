@@ -1,19 +1,29 @@
 package com.ledo.market.controller;
 
 import com.ledo.market.entity.FlowPayments;
+import com.ledo.market.mapper.StockInMapper;
+import com.ledo.market.mapper.StockOutMapper;
 import com.ledo.market.service.FlowPaymentService;
 import com.ledo.market.utils.ResultUtil;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 
 @RestController
 @RequestMapping("/treasure")
 public class FlowPaymentController {
     @Resource
+    StockOutMapper stockOutMapper;
+
+    @Resource
     FlowPaymentService flowPaymentService;
 
+    @Resource
+    StockInMapper stockInMapper;
     @GetMapping("/paymentsList")
     public ResultUtil selectAll() {
         return flowPaymentService.getAllRecord();
@@ -40,5 +50,25 @@ public class FlowPaymentController {
             return resultUtil;
         }
         return flowPaymentService.delRecord(pnumber);
+    }
+
+    //给分析数据图表传入数据
+    @GetMapping("analyseinsum")
+    public ResultUtil putstockinsum(){
+        ResultUtil resultUtil = new ResultUtil();
+        resultUtil.setCode(200);
+        resultUtil.setMessage("成功");
+        resultUtil.setData(stockInMapper.putstockinsum());
+        return resultUtil;
+    }
+
+    //给分析图表传入数据
+    @GetMapping("analyseoutsum")
+    public ResultUtil putstockoutsum(){
+        ResultUtil resultUtil = new ResultUtil();
+        resultUtil.setCode(200);
+        resultUtil.setMessage("成功");
+        resultUtil.setData(stockOutMapper.putstockoutsum());
+        return resultUtil;
     }
 }

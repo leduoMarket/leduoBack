@@ -10,4 +10,5 @@ public interface ProductMapper {
     List<Product> selectAll();
     Product selectByPrimaryKey(Long gid);
     Integer delete(Long gid);
+    String getProductNameByPnumber(Long gid);
 }

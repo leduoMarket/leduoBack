@@ -4,9 +4,12 @@ import com.ledo.market.entity.ProductPricing;
 import com.ledo.market.mapper.ProductPricingMapper;
 import com.ledo.market.service.ProductPricingService;
 import com.ledo.market.utils.ResultUtil;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.io.PrintWriter;
 import java.util.List;
 
 @RestController
@@ -30,8 +33,15 @@ public class ProductPricingController {
      * */
     @PostMapping("/addProductPricingInfo")
     @ResponseBody
-    public ResultUtil addpprice(@RequestBody ProductPricing productPricingInfoRecord){
+    public ResultUtil addpprice(@RequestBody @Validated ProductPricing productPricingInfoRecord, BindingResult checkResult){
         ResultUtil resultUtil = new ResultUtil();
+        if(checkResult.hasErrors()){
+            resultUtil.setCode(201);
+            resultUtil.setMessage("输入的参数格式不正确");
+            resultUtil.setData(checkResult.getAllErrors());
+            return resultUtil;
+        }
+        System.out.println(checkResult);
        if(productPricingInfoRecord==null){
            resultUtil.setCode(201);
            resultUtil.setMessage("需要增加的商品定价信息不能为空");

@@ -14,6 +14,10 @@
       select inumber, gid, vname, idate, iprice, ipayment, icount
       from stock_in
     </select>
+<!--  通过商品号获取供应商名称，其他表中必须和这个一样-->
+  <select id="getVenderNameByGid" resultType="java.lang.String">
+      select vname from stock_in where gid = #{gid}
+    </select>
 
   <select id="putstockindate" resultType="Date">
       select idate from stock_in group by idate

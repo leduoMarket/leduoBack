@@ -28,7 +28,10 @@ public class UserService {
 
     public ResultUtil updatePhoneOrName(String uid,String name,String phone){
         userMapper.updatePhoneOrName(uid,name,phone);
-        return null;
+        ResultUtil resultUtil = new ResultUtil();
+        resultUtil.setCode(200);
+        resultUtil.setMessage("修改成功");
+        return  resultUtil;
     }
 
     public ResultUtil getCurrentUserInfo(String uid){
@@ -134,6 +137,14 @@ public class UserService {
         user1.setUid(uid);
         user1.setPassword(newPassWd);
         Object encodedPassWd = encodingUtil.getPasswordEncoding(user1);
+        String passwordFromBD = userMapper.getPasswordByuid(uid);
+        System.out.print(passwordFromBD);
+        System.out.println("加密后的密码"+encodedPassWd.toString());
+        if(!passwordFromBD.equals(encodedPassWd.toString())){
+            resultUtil.setCode(201);
+            resultUtil.setMessage("原密码输入不正确");
+            return  resultUtil;
+        }
 
         //将加密好的密码打算存储进入数据库
         influenceLine = userMapper.changePassWord(uid,encodedPassWd.toString());
@@ -148,6 +159,7 @@ public class UserService {
         log.info("-用户"+uid+"修改密码成功");
         return resultUtil;
     }
+
     /**
      * 为注册函数提供服务
      * */

@@ -1,6 +1,7 @@
 package com.ledo.market.service;
 
 import com.ledo.market.entity.ProductPricing;
+import com.ledo.market.mapper.ProductMapper;
 import com.ledo.market.mapper.ProductPricingMapper;
 import com.ledo.market.utils.RedisUtil;
 import com.ledo.market.utils.ResultUtil;
@@ -13,6 +14,8 @@ import java.util.List;
 @Service
 @Slf4j
 public class ProductPricingService {
+    @Resource
+    ProductMapper productMapper;
     @Resource
     RedisUtil redisUtil;
    @Resource
@@ -47,6 +50,17 @@ public class ProductPricingService {
     * */
    public ResultUtil addProductPricingRecord(ProductPricing productPricingRecord){
        ResultUtil resultUtil = new ResultUtil();
+       String productName = productMapper.getProductNameByPnumber(productPricingRecord.getGid());
+       if(productName==null){
+           resultUtil.setCode(201);
+           resultUtil.setMessage("定价商品在商品表中未找到，请先插入");
+           return resultUtil;
+       }
+       if(!productPricingRecord.getGname().equals(productName)){
+           resultUtil.setCode(201);
+           resultUtil.setMessage("定价商品名与商品编号不一致，商品名应当为:"+productName);
+           return resultUtil;
+       }
        redisUtil.del("productPricingInfo");
        int influenceLine = 0;
        influenceLine = productPricingMapper.insert(productPricingRecord);

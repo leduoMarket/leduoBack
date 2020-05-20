@@ -1,5 +1,6 @@
 package com.ledo.market.service;
 import com.ledo.market.entity.StockIn;
+import com.ledo.market.mapper.ProductMapper;
 import com.ledo.market.mapper.StockInMapper;
 import com.ledo.market.utils.RedisUtil;
 import com.ledo.market.utils.ResultUtil;
@@ -19,6 +20,8 @@ import java.util.List;
 @Service
 @Slf4j
 public class StockInService {
+    @Resource
+    ProductMapper productMapper;
     @Resource
     ResultUtil resultUtil;
     @Resource
@@ -56,8 +59,16 @@ public class StockInService {
      * 采用延时双删策略进行redis和数据库的数据一致性
      * */
     public ResultUtil stockInAddfunc(StockIn stockInRecord){
-        int influenceLine = 0;
         ResultUtil resultUtil = new ResultUtil();
+        //通过商品编号判断商品在商品表中是否存在
+        Long gid = stockInRecord.getGid();
+        String productName = productMapper.getProductNameByPnumber(gid);
+        if(productName==null){
+            resultUtil.setCode(201);
+            resultUtil.setMessage("请先在商品表中添加商品信息");
+            return  resultUtil;
+        }
+        int influenceLine = 0;
         redisUtil.del("stockInList");
             try {
                 influenceLine = stockInMapper.insert(stockInRecord);

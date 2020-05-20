@@ -16,12 +16,12 @@ import java.util.List;
 public class DebtController {
     @Resource
     DebtService debtService = new DebtService();
-    @GetMapping("/debt")
+    @GetMapping("debt")
     public ResultUtil selectAll(){
         return debtService.getAll();
     }
 
-    @DeleteMapping("/delDebt")
+    @DeleteMapping("delDebt")
     public ResultUtil deldebt(@RequestParam(value = "debtId") String debtId) {
         ResultUtil resultUtil = new ResultUtil();
         if(debtId==null){

@@ -17,7 +17,10 @@ public interface StockInMapper{
     StockIn selectByPrimaryKey(String inumber);
     List<StockIn> selectAll();
     int updateByPrimaryKey(StockIn record);
-
     StockIn selectByInumber(String inumber);
     List<Map> putstockinsum();
+    /**
+     * 通过商品号获取供应商名称，在出库单中作为约束
+     * */
+    String getVenderNameByGid(Long gid);
 }

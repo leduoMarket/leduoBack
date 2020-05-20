@@ -2,7 +2,6 @@
 //
 //import com.ledo.market.entity.User;
 //import com.ledo.market.mapper.UserMapper;
-//import com.ledo.market.result.StatusCodeResult;
 //import org.springframework.web.bind.annotation.*;
 //
 //import javax.annotation.Resource;

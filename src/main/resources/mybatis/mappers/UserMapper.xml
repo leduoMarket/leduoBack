@@ -11,6 +11,11 @@
         <result column="role" jdbcType="VARCHAR" property="role" />
         <result column="status" jdbcType="INTEGER" property="status" />
     </resultMap>
+<!--    根据用户名查到用户密码，用于修改密码时校验-->
+    <select id="getPasswordByuid" resultType="java.lang.String">
+      select password from user where uid = #{uid}
+    </select>
+
 <!--    查询出所有员工的员工信息-->
     <select id="selectAll" resultType="com.ledo.market.entity.User">
       select uid,user_name,phone,role,status

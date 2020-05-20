@@ -58,6 +58,8 @@ public interface UserMapper {
      * 员工界面删除员工信息
      * */
     Integer delete(String uid);
+
+    String getPasswordByuid(String uid);
 }
 
 

@@ -51,19 +51,4 @@ public class StockOutController {
         }
         return stockOutService.delStockOutRecord(onumber);
     }
-
-    @CrossOrigin
-    @GetMapping("/analyseoutdate")
-    public List<Date> putstockoutdate(){
-        List<Date> outdate = stockoutmapper.putstockoutdate();
-        return outdate;
-    }
-
-    //给分析图表传入数据
-    @CrossOrigin
-    @GetMapping("/analyseoutsum")
-    public List<Map> putstockoutsum(){
-        return stockoutmapper.putstockoutsum();
-
-    }
 }
