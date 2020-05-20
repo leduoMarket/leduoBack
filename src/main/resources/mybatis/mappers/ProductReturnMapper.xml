@@ -4,21 +4,21 @@
   <resultMap id="BaseResultMap" type="com.ledo.market.entity.ProductReturn">
     <result column="gid" jdbcType="BIGINT" property="gid" />
     <result column="rdate" jdbcType="DATE" property="rdate" />
-    <result column="rreasong" jdbcType="VARCHAR" property="rreasong" />
+    <result column="rreason" jdbcType="VARCHAR" property="rreason" />
     <result column="rcount" jdbcType="INTEGER" property="rcount" />
   </resultMap>
   <insert id="insert" parameterType="com.ledo.market.entity.ProductReturn">
-    insert into product_return (gid, rdate, rreasong, 
+    insert into product_return (gid, rdate, rreason,
       rcount)
-    values (#{gid,jdbcType=BIGINT}, #{rdate,jdbcType=DATE}, #{rreasong,jdbcType=VARCHAR}, 
+    values (#{gid,jdbcType=BIGINT}, #{rdate,jdbcType=DATE}, #{rreason,jdbcType=VARCHAR},
       #{rcount,jdbcType=INTEGER})
   </insert>
   <select id="selectAll" resultType="com.ledo.market.entity.ProductReturn">
-    select gid, rdate, rreasong, rcount
+    select gid, rdate, rreason, rcount
     from product_return
 </select>
   <select id="selectByPrimaryKey" resultType="com.ledo.market.entity.ProductReturn">
-      select gid, rdate, rreasong, rcount
+      select gid, rdate, rreason, rcount
     from product_return
       where gid = #{gid} GROUP BY gid
     </select>

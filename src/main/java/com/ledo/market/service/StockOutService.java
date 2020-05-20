@@ -45,6 +45,7 @@ public class StockOutService {
             return resultUtil;
         }
         resultUtil.setCode(200);
+        resultUtil.setData(stockOutlist);
         return resultUtil;
     }
     /**

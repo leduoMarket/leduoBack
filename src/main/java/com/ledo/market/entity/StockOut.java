@@ -13,4 +13,5 @@ public class StockOut {
     private Date odate;
     private BigDecimal oprice;
     private BigDecimal opayment;
+    private Integer ocount;
 }

@@ -39,6 +39,7 @@ public class ProductPricingService {
        }
        resultUtil.setCode(200);
        log.info("-查看商品定价的信息");
+       resultUtil.setData(productPricingInfo);
        return resultUtil;
    }
    /**

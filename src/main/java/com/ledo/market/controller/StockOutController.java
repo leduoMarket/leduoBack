@@ -22,7 +22,6 @@ public class StockOutController {
     public ResultUtil selectAll(){
         return stockOutService.getAllStockOutRecord();
     }
-    /*后面还可以写别的方法*/
 
     /**
      * 增加某一条出库记录

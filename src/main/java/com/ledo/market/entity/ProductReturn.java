@@ -8,6 +8,6 @@ import java.util.Date;
 public class ProductReturn {
     private Long gid;
     private Date rdate;
-    private String rreasong;
+    private String rreason;
     private Integer rcount;
 }
