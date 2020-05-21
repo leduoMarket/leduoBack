@@ -17,6 +17,17 @@
     select gid, rdate, rreason, rcount
     from product_return
 </select>
+
+<!--  判断退货单中的商品号是否有出库记录-->
+  <select id="ifOutExistsGid" parameterType="java.lang.Long" resultType="java.lang.Long">
+    select ifnull((select gid  from stock_out where gid  = #{gid} limit 1 ), 0)
+</select>
+
+<!--  查询商品号对应的所有出库数目判断同一商品的退货总数是否已经超过了曾经出库了的总数-->
+  <select id="getCounts" resultType="java.lang.Integer" parameterType="java.lang.Long">
+    select sum(rcount) from product_return where gid = #{gid}
+</select>
+
   <select id="selectByPrimaryKey" resultType="com.ledo.market.entity.ProductReturn">
       select gid, rdate, rreason, rcount
     from product_return

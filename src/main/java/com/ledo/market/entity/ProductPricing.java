@@ -9,13 +9,9 @@ import java.util.Date;
 
 @Data
 public class ProductPricing {
-    @NonNull
     private Long gid;
-    @NonNull
     private String gname;
-    @NonNull
     private BigDecimal poldPrice;
-    @NotNull
     private BigDecimal pnewPrice;
     private String preason;
     private Date pdate;

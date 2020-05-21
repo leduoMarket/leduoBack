@@ -29,6 +29,7 @@ public class InventoryAccountsController {
                 synchronized (this){
                     inventoryAccountsList = inventoryAccountsMapper.selectAll();
                     redisUtil.set("inventoryAccountsList",inventoryAccountsList);
+                    redisUtil.expire("inventoryAccountsList",10);
                 }
             }
         }

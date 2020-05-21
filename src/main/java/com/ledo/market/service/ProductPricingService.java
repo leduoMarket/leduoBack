@@ -1,5 +1,6 @@
 package com.ledo.market.service;
 
+import com.ledo.market.entity.Product;
 import com.ledo.market.entity.ProductPricing;
 import com.ledo.market.mapper.ProductMapper;
 import com.ledo.market.mapper.ProductPricingMapper;
@@ -62,6 +63,8 @@ public class ProductPricingService {
            return resultUtil;
        }
        redisUtil.del("productPricingInfo");
+       //刷新商品表的缓存，同步价格
+       redisUtil.del("productList");
        int influenceLine = 0;
        influenceLine = productPricingMapper.insert(productPricingRecord);
        if(influenceLine==0){
@@ -75,6 +78,8 @@ public class ProductPricingService {
        } catch (InterruptedException e) {
            System.out.println("增减商品信息时缓存延时失败");
        }
+       //刷新商品表的缓存，同步价格
+       redisUtil.del("productList");
        redisUtil.del("productPricingInfo");
        resultUtil.setCode(200);
        resultUtil.setMessage("增加记录成功");
@@ -100,4 +105,20 @@ public class ProductPricingService {
        return resultUtil;
    }
 
+   /**
+    *
+    * 根据商品号和查询商品名称和商品
+    * */
+   public ResultUtil getProductNameAddChargeUnit(Long gid){
+       ResultUtil resultUtil = new ResultUtil();
+       Product nameAddPrice = productMapper.getProductInfoByGid(gid);
+       if(nameAddPrice==null){
+           resultUtil.setCode(201);
+           resultUtil.setMessage("商品代码不在商品表中，请先添加");
+           return resultUtil;
+       }
+       resultUtil.setCode(200);
+       resultUtil.setData(nameAddPrice);
+       return resultUtil;
+   }
 }

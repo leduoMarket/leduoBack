@@ -42,7 +42,7 @@
         where uid = #{uid,jdbcType=VARCHAR}
     </update>
 
-<!--    根据员工号和原始密码设置新的登录密码,pw1为原始密码，pw2为新密码-->
+<!--    根据员工号和原始密码设置新的登录密码,pw2为新密码-->
     <update id="changePassWord" parameterType="com.ledo.market.entity.User">
         update user set password = #{pwd2,jdbcType=VARCHAR} where uid = #{uid,jdbcType=VARCHAR}
     </update>

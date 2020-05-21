@@ -17,8 +17,6 @@ import java.util.List;
 public class ProductPricingController {
     @Resource
     ProductPricingService productPricingService;
-    @Resource
-    ProductPricingMapper productPricingmapper;
 
     /**
      * 获取所有的商品定价信息
@@ -33,15 +31,8 @@ public class ProductPricingController {
      * */
     @PostMapping("/addProductPricingInfo")
     @ResponseBody
-    public ResultUtil addpprice(@RequestBody @Validated ProductPricing productPricingInfoRecord, BindingResult checkResult){
+    public ResultUtil addpprice(@RequestBody ProductPricing productPricingInfoRecord){
         ResultUtil resultUtil = new ResultUtil();
-        if(checkResult.hasErrors()){
-            resultUtil.setCode(201);
-            resultUtil.setMessage("输入的参数格式不正确");
-            resultUtil.setData(checkResult.getAllErrors());
-            return resultUtil;
-        }
-        System.out.println(checkResult);
        if(productPricingInfoRecord==null){
            resultUtil.setCode(201);
            resultUtil.setMessage("需要增加的商品定价信息不能为空");
@@ -61,5 +52,16 @@ public class ProductPricingController {
             return resultUtil;
         }
         return productPricingService.delProductPricingInfo(gid);
+    }
+
+    @GetMapping("getProductInfoByGid")
+    public ResultUtil getProductInfoByGid(@RequestParam(value = "gid") Long gid){
+        ResultUtil resultUtil = new ResultUtil();
+        if(gid==null){
+            resultUtil.setCode(201);
+            resultUtil.setMessage("定价的商品代码不能为空");
+            return resultUtil;
+        }
+        return productPricingService.getProductNameAddChargeUnit(gid);
     }
 }

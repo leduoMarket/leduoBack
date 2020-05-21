@@ -71,7 +71,7 @@ public class FlowPaymentService {
     /**
      * 删除支付流水账记录
      */
-    public ResultUtil delRecord(Integer pnumber) {
+    public ResultUtil delRecord(String pnumber) {
         ResultUtil resultUtil = new ResultUtil();
         redisUtil.del("flowPaymentList");
         flowPaymentsMapper.delete(pnumber);

@@ -72,8 +72,6 @@ public class LogService {
         String uid = (String) userMap.get("uid");
         ResultUtil resultUtil = new ResultUtil();
         List logs =null;
-        redisUtil.expire("adminLogsSome",2000);
-        redisUtil.expire("userLogsSome",2000);
         if("ADMIN".equals(myRole)){
             //获取所有人的日志信息
             logs = (List) redisUtil.get("adminLogsSome");
@@ -83,6 +81,7 @@ public class LogService {
                     synchronized (this){
                         logs = logMapper.selectSome();
                         redisUtil.set("adminLogsSome",logs);
+                        redisUtil.expire("adminLogsSome",10);
                     }
                 }
             }
@@ -94,6 +93,7 @@ public class LogService {
                     synchronized (this){
                         logs = logMapper.getSomeUserLog(uid);
                         redisUtil.set("userLogsSome",logs);
+                        redisUtil.expire("userLogsSome",10);
                     }
                 }
             }
@@ -125,6 +125,7 @@ public class LogService {
                 if(allLogs==null){
                     allLogs = logMapper.selectAll();
                     redisUtil.set("addminLogsAll",allLogs);
+                    redisUtil.expire("addminLogsAll",10);
                 }
             }
         }else{
@@ -134,9 +135,11 @@ public class LogService {
                 if(allLogs==null){
                     allLogs = logMapper.getAllUserLog(uid);
                     redisUtil.set("userLogsAll",allLogs);
+                    redisUtil.expire("userLogsAll",10);
                 }
             }
         }
+
         if(allLogs==null){
             resultUtil.setCode(201);
             resultUtil.setMessage("暂时没有查询到任何日志记录");

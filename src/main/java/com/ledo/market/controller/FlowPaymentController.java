@@ -42,7 +42,7 @@ public class FlowPaymentController {
     }
 
     @DeleteMapping("/delPayment")
-    public ResultUtil delgoods(@RequestParam(value = "pnumber") Integer pnumber) {
+    public ResultUtil delgoods(@RequestParam(value = "pnumber") String pnumber) {
         ResultUtil resultUtil = new ResultUtil();
         if (pnumber == null) {
             resultUtil.setCode(201);

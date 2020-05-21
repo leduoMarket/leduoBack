@@ -11,4 +11,8 @@ public interface ProductMapper {
     Product selectByPrimaryKey(Long gid);
     Integer delete(Long gid);
     String getProductNameByPnumber(Long gid);
+    /**
+     * 新增调整价格的时候,根据gid查询出gname和chage_unit
+     * */
+    Product getProductInfoByGid(Long gid);
 }

@@ -7,6 +7,8 @@ import com.ledo.market.utils.EncodingUtil;
 import com.ledo.market.utils.RedisUtil;
 import com.ledo.market.utils.ResultUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
@@ -26,13 +28,23 @@ public class UserService {
     //注册和修改密码时候用到的加密工具
     private EncodingUtil encodingUtil = new EncodingUtil();
 
+    /**
+     * 修改电话号码或者是姓名的服务类
+     * */
     public ResultUtil updatePhoneOrName(String uid,String name,String phone){
-        userMapper.updatePhoneOrName(uid,name,phone);
         ResultUtil resultUtil = new ResultUtil();
+        int influentLine = 0;
+        influentLine = userMapper.updatePhoneOrName(uid,name,phone);
+        if(influentLine==0){
+            resultUtil.setCode(201);
+            resultUtil.setMessage("修改失败");
+            return  resultUtil;
+        }
         resultUtil.setCode(200);
         resultUtil.setMessage("修改成功");
         return  resultUtil;
     }
+
 
     public ResultUtil getCurrentUserInfo(String uid){
         ResultUtil resultUtil = new ResultUtil();
@@ -125,6 +137,12 @@ public class UserService {
      * */
     public ResultUtil changePassword(String uid,String oldPassWd,String newPassWd){
         ResultUtil resultUtil = new ResultUtil();
+        Subject currentUser = SecurityUtils.getSubject();
+        if(!uid.equals(currentUser.getPrincipal())){
+            resultUtil.setCode(201);
+            resultUtil.setMessage("你没有权限修改该用户的密码");
+            return resultUtil;
+        }
         int influenceLine = 0;
         if(oldPassWd.equals(newPassWd)){
             resultUtil.setCode(201);
@@ -132,22 +150,26 @@ public class UserService {
             log.error("-用户"+uid+"打算修改的密码与原密码相同");
             return resultUtil;
         }
+
         //传过来的密码是在前端进行简单的md5加密过后的密码
         User user1 = new User();
         user1.setUid(uid);
-        user1.setPassword(newPassWd);
+        user1.setPassword(oldPassWd);
         Object encodedPassWd = encodingUtil.getPasswordEncoding(user1);
         String passwordFromBD = userMapper.getPasswordByuid(uid);
-        System.out.print(passwordFromBD);
-        System.out.println("加密后的密码"+encodedPassWd.toString());
         if(!passwordFromBD.equals(encodedPassWd.toString())){
             resultUtil.setCode(201);
             resultUtil.setMessage("原密码输入不正确");
             return  resultUtil;
         }
 
-        //将加密好的密码打算存储进入数据库
-        influenceLine = userMapper.changePassWord(uid,encodedPassWd.toString());
+        //将新密码进行二次加密之后存储进入数据库，加密的时候需要用到uid和密码
+        User userWithNewPassword = new User();
+        userWithNewPassword.setUid(uid);
+        userWithNewPassword.setPassword(newPassWd);
+        Object encodedNewPassWord = encodingUtil.getPasswordEncoding(userWithNewPassword);
+        //将加密好的密码存储进入数据库
+        influenceLine = userMapper.changePassWord(uid,encodedNewPassWord.toString());
         if(influenceLine==0){
             resultUtil.setCode(201);
             resultUtil.setMessage("修改密码失败");

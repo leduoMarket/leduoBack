@@ -10,6 +10,10 @@
     <result column="opayment" jdbcType="DECIMAL" property="opayment" />
     <result column="ocount" jdbcType="INTEGER" property="ocount" />
   </resultMap>
+<!--  计算同一商品号出库了的总数-->
+  <select id="getStockOutCount" parameterType="java.lang.Long" resultType="java.lang.Integer">
+        select sum(ocount) from stock_out where gid = #{gid}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from stock_out
     where onumber = #{onumber,jdbcType=VARCHAR}
@@ -27,7 +31,6 @@
     from stock_out
     where onumber = #{onumber,jdbcType=VARCHAR}
   </select>
-  <!--实现的方法 sql语句-->
   <select id="selectAll" resultType="com.ledo.market.entity.StockOut">
     select onumber, gid, vname, odate, oprice, opayment, ocount
     from stock_out

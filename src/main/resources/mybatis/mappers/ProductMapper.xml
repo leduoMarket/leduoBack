@@ -9,11 +9,16 @@
     <result column="charge_unit" jdbcType="VARCHAR" property="charge_unit" />
     <result column="gdate" jdbcType="DATE" property="gdate" />
   </resultMap>
+<!--  商品定价的时候新增时候输入商品定价直接返回商品名和chage——unit-->
+  <select id="getProductInfoByGid" resultType="com.ledo.market.entity.Product"  parameterType="java.lang.Long">
+    select gname,charge_unit from product where gid = #{gid}
+  </select>
+
   <insert id="insert" parameterType="com.ledo.market.entity.Product">
     insert into product (gid, gname, categories,
       address, charge_unit,gdate)
     values (#{gid,jdbcType=BIGINT}, #{gname,jdbcType=VARCHAR}, #{categories,jdbcType=VARCHAR},
-      #{address,jdbcType=VARCHAR}, #{chargeUnit,jdbcType=VARCHAR},#{gdate,jdbcType=DATE})
+      #{address,jdbcType=VARCHAR}, #{chargeUnit},#{gdate,jdbcType=DATE})
   </insert>
   <select id="selectAll" resultType="com.ledo.market.entity.Product">
     select gid, gname, categories,

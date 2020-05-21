@@ -7,7 +7,6 @@ import com.ledo.market.utils.ResultUtil;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 
-
 @RestController
 @RequestMapping("/staff")
 public class ProductReturnController {
@@ -17,7 +16,6 @@ public class ProductReturnController {
     public ResultUtil selectAll(){
         return productReturnService.getAll();
     }
-
     @PostMapping("/addProductReturn")
     @ResponseBody
     public ResultUtil addProductReturn(@RequestBody ProductReturn returnRecord){
@@ -29,6 +27,7 @@ public class ProductReturnController {
         }
         return productReturnService.addRecord(returnRecord);
     }
+
     @DeleteMapping("/delProductReturn")
     public ResultUtil delemp(@RequestParam(value = "gid") Long gid) {
         ResultUtil  resultUtil = new ResultUtil();

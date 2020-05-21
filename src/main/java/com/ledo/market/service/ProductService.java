@@ -52,6 +52,7 @@ public class ProductService {
     public ResultUtil addProductRecord(Product productRecord){
         ResultUtil resultUtil = new ResultUtil();
         redisUtil.del("productList");
+
         try {
             productMapper.insert(productRecord);
         }catch(DuplicateKeyException e){

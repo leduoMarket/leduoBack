@@ -18,4 +18,8 @@ public interface StockOutMapper {
     String delete(String onumber);
     List<Date> putstockoutdate();
     List<Map> putstockoutsum();
+    /**
+     * 计算指定商品号的商品总的出库记录，用于判断出库单中是否此商品是否不合理的退货
+     * */
+    int getStockOutCount(Long gid);
 }

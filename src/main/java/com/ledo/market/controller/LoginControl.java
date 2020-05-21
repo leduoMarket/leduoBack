@@ -2,6 +2,7 @@ package com.ledo.market.controller;
 import com.ledo.market.mapper.UserMapper;
 import com.ledo.market.entity.User;
 import com.ledo.market.service.UserService;
+import com.ledo.market.utils.RedisUtil;
 import com.ledo.market.utils.ResultUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
@@ -52,18 +53,23 @@ public class LoginControl {
         }
         return  userService.registe(requser);
     }
+
+
     @PostMapping("/login")
     @ResponseBody
     public ResultUtil login(@RequestBody User postUser) {
         Subject currentUser = SecurityUtils.getSubject();
         String uid = postUser.getUid();
-        User user = userMapper.getUserByUid(uid);
-        String userName = user.getUserName();
         String passwd = postUser.getPassword();
+        User user ;
+        String userName = null;
+        Map resultMap = null;
         if(!currentUser.isAuthenticated()){
             token = new UsernamePasswordToken(uid,passwd);
             try {
                 currentUser.login(token);
+                user = userMapper.getUserByUid(uid);
+                userName = user.getUserName();
             }catch (UnknownAccountException ue){
                 resultUtil.setCode(401);
                 resultUtil.setMessage("用户名不存在");
@@ -86,7 +92,7 @@ public class LoginControl {
         final int ADMIN = 3;
         final int TREASURE = 2;
         final int STAFF = 1;
-        Map resultMap = new HashMap();
+        resultMap = new HashMap();
        Set roles = userMapper.getRolesByuid(postUser.getUid());
         if(roles.size()==ADMIN){
             resultMap.put("role",1);
@@ -102,6 +108,7 @@ public class LoginControl {
         resultUtil.setData(resultMap);
         return resultUtil;
     }
+
     /**
      * 执行修改密码的功能
      * */
@@ -116,11 +123,14 @@ public class LoginControl {
     @GetMapping("/staff/logout")
     public ResultUtil logout(){
         ResultUtil resultUtil = new ResultUtil();
+//        RedisUtil redisUtil = new RedisUtil();
+        //退出登录时候删除所有的缓存
+
         Subject currentUser = SecurityUtils.getSubject();
         log.info("-用户"+currentUser.getPrincipal()+"退出登录");
         currentUser.logout();
         resultUtil.setCode(405);
-        resultUtil.setMessage("执行了登出功能");
+        resultUtil.setMessage("退出登录");
         //执行退出登录
         return resultUtil;
     }

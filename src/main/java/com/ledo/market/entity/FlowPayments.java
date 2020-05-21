@@ -10,7 +10,7 @@ import java.util.Date;
  * */
 @Data
 public class FlowPayments {
-    private Integer pnumber;
+    private String pnumber;
     private Date pdate;
     private String pcategory;
     private String psourceShop;

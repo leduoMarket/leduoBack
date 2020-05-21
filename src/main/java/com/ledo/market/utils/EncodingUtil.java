@@ -19,8 +19,6 @@ public class EncodingUtil {
             String credentials = user.getPassword();
             ByteSource credentialsSalt = ByteSource.Util.bytes(principal);
             Object passwordResult = new SimpleHash("MD5",credentials,credentialsSalt,ENCODINGTIME);
-            log.info("-注册时候获取的凭证为"+principal+"密码为："+credentials+"盐为:"+credentialsSalt+"数据库应该存储的密码为："+passwordResult);
-            System.out.println("-数据库存储的密码："+passwordResult);
             return passwordResult;
     }
 }

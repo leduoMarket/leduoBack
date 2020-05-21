@@ -7,14 +7,14 @@ import java.util.List;
 
 public interface FlowPaymentsMapper {
 
-    int deleteByPrimaryKey(Integer pnumber);
+    int deleteByPrimaryKey(String pnumber);
 
     int insert(FlowPayments record) throws DuplicateKeyException;
 
-    FlowPayments selectByPrimaryKey(Integer pnumber);
+    FlowPayments selectByPrimaryKey(String pnumber);
 
     List<FlowPayments> selectAll();
 
     int updateByPrimaryKey(FlowPayments record);
-    Integer delete(Integer pnumber);
+    Integer delete(String pnumber);
 }
